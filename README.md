@@ -2,21 +2,32 @@
 
 ## Current draft
 
-Passes 1-4 are integrated: Introduction, Related Work, AQSE Framework,
-Experimental Methodology, and Results. This is a partial English manuscript,
-not a submission-ready paper. Discussion, Limitations, Conclusions, and final
-integration remain to be completed.
+Passes 1-5 are integrated: Introduction, Related Work, AQSE Framework,
+Experimental Methodology, Results, Discussion, Limitations, and Conclusions.
+The core English manuscript is complete. Abstract, author information, final
+editorial integration and submission checks are still pending. This is not a
+submission-ready paper.
 
 - Manuscript branch: `paper/ieee-tqe-v1`.
-- Input manuscript revision: `b86bed0523914ceac74c0d59ccebd8e5e884b0c5`.
+- Input manuscript revision: `1ffa0eaf2187a708ca897e6877a6e60f7ea2622e`.
 - Scientific execution revision: `091acf2e98b2b88720730eea276e253f0c96f5a6`.
 - Published scientific snapshot: `0ed58cfd4a1680ee111f91bb44af7ab101d4c01a`.
 - Reporting recovery revision: `d42965ef6a38791fcdbdc1b7bbb3750a58d1f2f1`.
 
-The four previous prose sections, existing figure sources, method tables and
-editorial notes are byte-identical. Pass 4 adds Results, four results tables,
-three vector figure PDFs, and a small reproducible result-analysis directory.
-Three references are appended. No experiment or TEST prediction was rerun.
+The five previous prose sections, all 30 bibliography records, figures,
+tables, previous editorial notes, and `analysis/pass4/` are byte-identical to
+the published Pass 4. This update adds three prose sections and a Pass 5 source
+and interpretation audit, and changes only this README and `main.tex` among
+the existing files. No scientific calculation was repeated.
+
+New manuscript files:
+
+```text
+sections/06_discussion.tex
+sections/07_limitations.tex
+sections/08_conclusion.tex
+editorial/pass5-evidence-and-decisions.md
+```
 
 ## Compile
 
@@ -89,7 +100,10 @@ GitHub publication does not automatically compile or synchronize Overleaf.
 Use the preview PDF or a separate review project before the final approved
 merge and pull into the connected Overleaf project.
 
-## Remaining passes
+## Remaining integration
 
-5. Discussion, Limitations and Conclusions.
-6. Final integration, abstract, author information, reference and submission checks.
+Pass 6 covers the abstract, Index Terms, author-approved metadata, reference and
+cross-reference review, figure/layout checks, TQE template reconciliation, data
+and code availability wording, and AI-assistance disclosure. It does not authorize
+new experiments or replacement of the frozen results. Merge and Overleaf sync
+require explicit approval after review.
