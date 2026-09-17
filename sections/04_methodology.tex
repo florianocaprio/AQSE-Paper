@@ -1,0 +1,118 @@
+\section{Experimental Methodology}
+\label{sec:methodology}
+
+\subsection{Scope and Prespecified Protocol}
+\label{sec:methods-scope}
+
+The 30-replica study evaluates the harmonic-feature TQK--SVC route, not the network State8--AFSE--MLP route. Its task is discrimination of nominal and elevated white-noise regimes. Each replica comprises a new simulated corpus, an episode-level split, optimization, model selection, and held-out evaluation. Dataset, split, QNG, and classical-model randomness vary together; their separate variance contributions are not identified~\cite{aqse2026canonical}.
+
+The protocol was recorded in the source repository on September 16, 2026, before the primary execution. We use \emph{preregistered} to denote this repository-level record, not an external registration service. It fixes the replica counts, seed rules, model budgets, and primary decision criterion. There is no performance-based stopping or extension of the primary study. An earlier four-run negative-control pilot informed the choice of 12 subsequent control runs. That pilot is excluded from the reported groups. The control count was thus informed by prior observations. No prospective power calculation is specified.
+
+The primary criterion requires a positive lower endpoint of the 95\% interval for the mean paired TQK-minus-RBF TEST balanced-accuracy difference and two-sided Wilcoxon $p<0.05$. Macro-F1 and the other comparators are secondary and cannot replace this criterion. No equivalence margin or hardware-speed criterion is defined.
+
+\subsection{Simulated Episodes and Harmonic Features}
+\label{sec:methods-data}
+
+Each primary replica contains 120 independent episode lineages, with 60 episodes per noise regime. Every episode uses a static vector magnetometer at the origin, an identity linear response, and a constant background field of $(20{,}000,0,45{,}000)$~nT. A sinusoidal perturbation is applied along the $x$ axis. The generator samples amplitude, frequency, initial phase, temperature, and noise standard deviation from the distributions in Table~\ref{tab:benchmark-domain}. The nuisance distributions are the same for both labels. Nominal noise defines $y=-1$ and elevated noise defines $y=+1$. The configured standard deviation is applied to each measured component as Gaussian white noise per sample. It is not a noise spectral density. The configuration has no injected bias, deterministic drift, random walk, Ornstein--Uhlenbeck component, dropout, thermal bias, or bandwidth filter.
+
+\input{tables/benchmark_protocol}
+
+Each episode contains 1,000 samples at 100~Hz, at times $0,0.01,\ldots,9.99$~s. The extractor uses only the observed $x$ component, converted from tesla to nanotesla, and observed temperature. It forms complete 100-sample windows with a 50-sample hop. Of the 19 resulting windows, only zero-based ordinal 9 is retained for learning. This is the index interval $[450,550)$, or $[4.5,5.5)$~s. Thus each episode contributes one eight-dimensional row. Overlapping windows are not counted as independent examples. The injected parameters define the simulation and label but are not substituted for feature estimates.
+
+The harmonic extractor in~\eqref{eq:harmonic-vector} first removes a least-squares intercept and linear trend for spectral estimation. It computes a Hann-windowed, one-sided power spectral density and estimates the dominant non-DC frequency by bounded parabolic peak interpolation. A regression of the original window onto an intercept, centered time, sine, and cosine at that estimated frequency supplies amplitude, phase, and drift. Phase is relative to the window start. SNR is the ratio of fitted periodic power to residual power, expressed in decibels with numerical floors and clipping to $[-300,300]$~dB. Variance is the population variance of the observed signal. Peak PSD excludes the DC bin, and temperature is averaged within the window.
+
+Eligibility requires a nonconstant signal, at least two estimated cycles, peak prominence of at least 6~dB over the median non-DC PSD, harmonic SNR of at least 0~dB, and no clipped samples. Nonuniform or nonfinite input is rejected. If the predetermined window is missing or ineligible, the replica raises an error. It does not substitute another window, regenerate an episode until it passes, or silently omit the row. This task measures classification within the specified harmonic/noise domain, not general fault diagnosis.
+
+\subsection{Splits, Seeds, and Information Boundaries}
+\label{sec:methods-splits}
+
+Episode lineages are assigned before simulation to a stratified 60/20/20 split. Each class contributes 36 TRAIN, 12 VALIDATION, and 12 TEST episodes, giving partition sizes of 72, 24, and 24. Lineage and episode identifiers cannot cross partitions. Rows are ordered by episode identifier after assignment. The same rows and labels are supplied to all five methods within a replica; no cross-validation folds are used.
+
+The primary base seed is 3001001. For replica $r$ and domain $d$, the implementation hashes the UTF-8 string \texttt{aqse-paper-v1:b:r:d}, substituting the decimal base seed $b$ and replica index $r$. The first four SHA-256 bytes, interpreted as an unsigned little-endian integer, define the seed. Domains distinguish replica identity, dataset generation, splitting, QNG, classical fitting, and permutation control. Within episode generation, separate hash namespaces drive nuisance parameters, the noise intervention, and measurement noise. All derived seeds are recorded. Domain separation defines reproducible pseudorandom streams.
+
+Scaler fitting uses TRAIN only. VALIDATION selects configurations but is never appended to TRAIN for refitting. The selected predictor is then applied to TEST without further fitting. The run stores a selection record before the designated TEST loader is invoked. Its ledger has the ordered events \texttt{sealed}, \texttt{observations\_opened}, \texttt{labels\_opened}, and \texttt{evaluation\_published}. Predictions are computed after loading test features and before the designated label load. The last event binds the published result by SHA-256.
+
+This is a workflow guard rather than an inaccessible holdout service: test arrays exist in the dataset container, and structural validation checks their shapes and class support. Fitting uses only the training and validation fields. The ledger records the designated loader sequence, not every possible memory access. It guards against accidental reuse within this implementation and is not a security proof.
+
+\subsection{Quantum Model Selection and Classical Comparators}
+\label{sec:methods-models}
+
+The TQK uses the circuit, centered-alignment objective, and damped QNG update of Section~\ref{sec:framework}. The scaler is fitted to all 72 training rows. The harmonic phase override in~\eqref{eq:phase-direct} is then applied. A seeded, without-replacement sample of 16 training rows per class forms the fixed 32-row QNG bank. All 16 initial circuit parameters are drawn uniformly from $[-0.8,0.8]$ using the replica QNG seed.
+
+At most ten QNG updates are accepted, with learning rate 0.2, damping $10^{-3}$, and maximum step norm 0.4. The line search and termination tests remain those of the protected implementation. Checkpoint 0 is the initial circuit. Each accepted update contributes another checkpoint; no update is inserted when the optimizer stops. For each checkpoint, the SVC is fitted on the full, uncentered $72\times72$ TRAIN fidelity Gram matrix for $C\in\{0.1,1,10\}$. Centering is used in the alignment objective, not in the SVC input. Selection maximizes validation balanced accuracy, then macro-F1. Exact ties favor the earlier checkpoint and then smaller $C$. The maximum search budget is 33 checkpoint--$C$ candidates per replica. Only the selected checkpoint is evaluated on TEST. This study does not include a separately selected fixed-kernel or ordinary-gradient TEST arm.
+
+\input{tables/comparator_budget}
+
+Table~\ref{tab:comparator-budget} specifies the four classical comparators. RBF-SVC, MLP, and RFF use a TRAIN-fitted standardizer on the original eight feature coordinates; gradient boosting uses those coordinates without standardization. In particular, the classical phase input remains a scalar in radians. These comparators do not use the nine-coordinate sine/cosine phase map of an earlier AQSE experiment. Shared observations therefore do not imply identical preprocessing.
+
+RBF selection maximizes validation balanced accuracy and then macro-F1, with smaller $C$ and then smaller $\gamma$ breaking ties. The other three classical configurations are fixed; their validation scores are recorded but do not select a grid point. Library defaults not overridden in Table~\ref{tab:comparator-budget} are those of the recorded scikit-learn version. Search budgets are not equalized across families.
+
+The one-hidden-unit binary MLP has 11 trainable weights and biases. This is a capacity reference, not a match to the full TQK--SVC predictor, which also learns support-vector coefficients and an intercept. Likewise, 256 RFF components match $2^8$ numerically, not the hypothesis class or computational cost of a fidelity kernel. No parameter-count, runtime, or representational equivalence is assumed.
+
+\subsection{Mechanism-Aligned and Training-Label Controls}
+\label{sec:methods-controls}
+
+Both controls use synthetic eight-dimensional examples, not magnetometer episodes. They retain the same model-fitting and selection procedures, but their stratified partition sizes are 120/40/40, with equal class counts. Their outputs are reported separately from the primary study.
+
+\subsubsection{Mechanism-aligned positive control}
+The positive-control base seed is 3003001. Each of its 12 runs constructs a new 200-example dataset using the replica dataset seed. Candidate coordinates are sampled uniformly from $[-1.4,1.4]^8$. A teacher circuit uses the protected VQC with parameters drawn from $[-0.8,0.8]^{16}$ using \texttt{SeedSequence([dataset\_seed,17])}. For two fixed prototype vectors $\mathbf p_-$ and $\mathbf p_+$, define
+\begin{equation}
+ h(\mathbf x)=k_{\boldsymbol\theta^{\rm teach}}(\mathbf x,\mathbf p_+)
+              -k_{\boldsymbol\theta^{\rm teach}}(\mathbf x,\mathbf p_-).
+ \label{eq:teacher-control}
+\end{equation}
+The label is $+1$ for $h(\mathbf x)\geq0$ and $-1$ otherwise. Candidates are drawn in batches of 200 until at least 100 exist in each class. The 100 largest absolute contrasts per class are retained, then shuffled and split. The released generator specifies the prototype coordinates. This selection creates a class-balanced, margin-enriched control rather than an unfiltered uniform sample. Teacher labels precede the student's TRAIN-fitted encoding; exact teacher realizability by the student is not assumed.
+
+\subsubsection{TRAIN-label permutation control}
+One teacher-generated dataset of 200 examples is constructed with seed 3004001. All 12 negative-control runs reuse this dataset. Base seed 3002001 supplies new splits, QNG and classical seeds, and TRAIN-label permutations. The per-run dataset seed does not generate a fresh corpus. Sample identities may recur across runs but not across partitions within a run.
+
+Only TRAIN labels are permuted. Correct VALIDATION labels still select the TQK checkpoint and $C$, and the RBF hyperparameters. TEST labels remain unchanged. The protocol's diagnostic criterion is whether each method's 95\% mean balanced-accuracy interval contains 0.5. It is not a formal equivalence test or a full label-null experiment. Its resampling variability is conditional on the one control dataset, not variability over 12 independently generated corpora. This distinction is retained when interpreting the control.
+
+\subsection{Metrics and Statistical Analysis}
+\label{sec:methods-statistics}
+
+For each replica and method, the recorded metrics are balanced accuracy and macro-F1. With class-wise counts $\mathrm{TP}_c$, $\mathrm{FP}_c$, and $\mathrm{FN}_c$, they are
+\begin{align}
+ \mathrm{BA}&=\frac{1}{2}\sum_{c\in\{-1,+1\}}
+ \frac{\mathrm{TP}_c}{\mathrm{TP}_c+\mathrm{FN}_c},\label{eq:balanced-accuracy}\\
+ F_{1,\mathrm{macro}}&=\frac{1}{2}\sum_{c\in\{-1,+1\}}
+ \frac{2\mathrm{TP}_c}{2\mathrm{TP}_c+\mathrm{FP}_c+\mathrm{FN}_c}.
+ \label{eq:macro-f1}
+\end{align}
+Undefined class-wise F1 terms are assigned zero. Both true classes are required in every partition. In the balanced 24-episode primary TEST, a single additional correct prediction changes BA by $1/24$; this discreteness produces ties and limits per-replica resolution.
+
+The primary inferential unit is the replica, not a window or a method--replica row. For baseline $m$, the paired effect is
+\begin{equation}
+ \Delta_{r,m}=\mathrm{BA}_{r,\mathrm{TQK}}-\mathrm{BA}_{r,m},
+ \qquad \bar\Delta_m=\frac{1}{30}\sum_{r=0}^{29}\Delta_{r,m}.
+ \label{eq:paired-effect}
+\end{equation}
+An analogous difference is calculated for macro-F1. The report includes mean, median, sample standard deviation, minimum, and maximum for method scores and paired differences. It also records the fraction of strictly positive paired differences.
+
+The percentile bootstrap resamples replica-level values with replacement 2,000 times~\cite{efron1979bootstrap}. Paired intervals resample the within-replica differences, not the two methods independently. The 2.5th and 97.5th percentiles of the resampled means use linear interpolation. Inputs are sorted before resampling; endpoints are expanded to include the observed mean if needed. Intervals are neither bias-corrected nor studentized. Primary mean-score seeds are $3011001+10j+q$; paired-difference seeds are $3021001+10j+q$. Here $q=0$ for BA and $q=1$ for macro-F1. Method order is TQK, RBF, MLP, RFF, and boosting; paired order omits TQK. The group aggregates and kernel summaries have separately recorded hash-derived bootstrap seeds.
+
+The paired Wilcoxon signed-rank test is two-sided, with Pratt zero handling and the recorded SciPy \texttt{method="auto"} implementation~\cite{wilcoxon1945ranking,pratt1959zeros}. Exactly zero differences enter ranking and their signed contributions are omitted. If all differences are exactly zero, the wrapper returns $p=1$. The test is computed from unrounded floating-point scores, without tolerance-based merging of near-ties. Reproduction of the frozen test therefore requires that numerical convention. The signed-rank null concerns the distribution of paired differences about zero; it is not itself a test of the mean in~\eqref{eq:paired-effect}.
+
+The prespecified criterion combines the paired mean interval and the Wilcoxon result. Secondary comparisons and intervals are reported without a built-in family-wise adjustment. Any multiplicity correction, spectral--performance correlation, or checkpoint-stratified analysis added during manuscript analysis must be identified as post hoc. None changes the frozen primary criterion or model selection.
+
+\subsection{Kernel Diagnostics and Computational Records}
+\label{sec:methods-diagnostics}
+
+Every available checkpoint supplies an uncentered TRAIN Gram matrix for spectral analysis. Let $\lambda_i^+=\max(\lambda_i,0)$, $\tau=\sum_i\lambda_i^+$, and $p_i=\lambda_i^+/\tau$. The recorded summaries include
+\begin{equation}
+ r_{\rm eff}=\exp\!\left(-\sum_{i:p_i>0}p_i\log p_i\right),
+ \qquad c_{\rm spec}=\frac{\max_i\lambda_i^+}{\tau}.
+ \label{eq:kernel-spectrum-diagnostics}
+\end{equation}
+The entropy-based effective rank follows~\cite{roy2007rank}. Symmetry errors above $10^{-10}$ are rejected. The matrix is symmetrized for eigendecomposition, and eigenvalues below $-10^{-9}\max(1,\max_i|\lambda_i|)$ cause rejection. Only residual negative roundoff is clipped for the entropy calculation. The reported positive-spectrum condition number excludes eigenvalues no larger than $10^{-12}\max(1,\max_i|\lambda_i|)$; it is not an unconditional condition number for a rank-deficient matrix.
+
+The archive retains the full spectrum, diagonal and off-diagonal summaries, and the selected checkpoint identity. TEST--TRAIN cross-kernels have shape $24\times72$ in the primary study and $40\times120$ in the controls; their minimum, maximum, mean, and standard deviation are recorded after selection. Kernel geometry describes the representation, not a separate accuracy criterion. No TEST metric for an unselected checkpoint is generated. The records therefore do not provide a trained-versus-initial TEST ablation.
+
+Timers separate dataset generation, joint training/model selection, and joint test evaluation. The total runtime is repeated in each method row of \texttt{replicas.csv}; it is not a per-method runtime. These records do not support a method-specific speed comparison.
+
+\subsection{Execution Provenance and Report Recovery}
+\label{sec:methods-provenance}
+
+The experiment ran offline in the backend container using NumPy exact-state simulation, without GUI interaction, finite-shot sampling, or QPU access. The recorded environment is Python 3.12.14, NumPy 2.5.3, SciPy 1.18.1, scikit-learn 1.9.0, and Qiskit 2.5.2 on Linux/aarch64. Qiskit was installed but was not the backend used for the replicated computation. The scientific execution revision is \texttt{091acf2}; the published code-and-results snapshot is \texttt{0ed58cf}~\cite{aqse2026canonical}.
+
+A JSON serialization failure occurred after replica evaluation. A separate report-only recovery at revision \texttt{d42965e} read the persisted results and completed aggregation and packaging. It did not regenerate data, refit models, make new predictions, or reload TEST arrays. Source evidence was hashed before and after recovery. The canonical \texttt{report-recovery-v2} package includes full commit identifiers, protocol, environment, per-replica records, diagnostics, and manifest. The earlier noncanonical report package is excluded. Experimental and reporting provenance remain distinct.
