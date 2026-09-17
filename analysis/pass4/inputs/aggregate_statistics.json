@@ -1,0 +1,337 @@
+{
+  "kernel_aggregate": {
+    "effective_rank": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 28.07579732953282,
+      "point": 28.824111568142182,
+      "upper": 29.522032569164157
+    },
+    "maximum_eigenvalue_trace_ratio": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.20760769241167432,
+      "point": 0.2159834436079106,
+      "upper": 0.22429133353327424
+    },
+    "trace": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 71.99999999999999,
+      "point": 71.99999999999999,
+      "upper": 72.00000000000001
+    }
+  },
+  "method_statistics": {
+    "gradient_boosting": {
+      "balanced_accuracy": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9708333333333332,
+          "point": 0.9805555555555555,
+          "upper": 0.9902777777777776
+        },
+        "median": 1.0,
+        "minimum": 0.9166666666666667,
+        "standard_deviation": 0.028393557810877497
+      },
+      "macro_f1": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9706804499847979,
+          "point": 0.980477956825783,
+          "upper": 0.9902462754636667
+        },
+        "median": 1.0,
+        "minimum": 0.916083916083916,
+        "standard_deviation": 0.028544981081992646
+      }
+    },
+    "mlp_11_parameter": {
+      "balanced_accuracy": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9638888888888888,
+          "point": 0.975,
+          "upper": 0.986111111111111
+        },
+        "median": 1.0,
+        "minimum": 0.9166666666666666,
+        "standard_deviation": 0.03208883741412328
+      },
+      "macro_f1": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9623761840816191,
+          "point": 0.9749029762508024,
+          "upper": 0.9860723624201885
+        },
+        "median": 1.0,
+        "minimum": 0.916083916083916,
+        "standard_deviation": 0.032245557324184104
+      }
+    },
+    "quantum": {
+      "balanced_accuracy": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9333333333333332,
+          "point": 0.9527777777777777,
+          "upper": 0.9708333333333333
+        },
+        "median": 0.9583333333333333,
+        "minimum": 0.7916666666666667,
+        "standard_deviation": 0.05441843932852857
+      },
+      "macro_f1": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9312367321933587,
+          "point": 0.9523190591435678,
+          "upper": 0.9707189060134713
+        },
+        "median": 0.9582608695652174,
+        "minimum": 0.7822141560798548,
+        "standard_deviation": 0.05555422967962846
+      }
+    },
+    "rbf_svc": {
+      "balanced_accuracy": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9444444444444443,
+          "point": 0.9569444444444444,
+          "upper": 0.9694444444444443
+        },
+        "median": 0.9583333333333333,
+        "minimum": 0.875,
+        "standard_deviation": 0.03707991611100932
+      },
+      "macro_f1": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9428287515222301,
+          "point": 0.9567813844770365,
+          "upper": 0.9693573071855682
+        },
+        "median": 0.9582608695652174,
+        "minimum": 0.873015873015873,
+        "standard_deviation": 0.037313202634740805
+      }
+    },
+    "rff_256": {
+      "balanced_accuracy": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9291666666666666,
+          "point": 0.9472222222222222,
+          "upper": 0.9652777777777776
+        },
+        "median": 0.9583333333333333,
+        "minimum": 0.8333333333333333,
+        "standard_deviation": 0.0512456583215315
+      },
+      "macro_f1": {
+        "maximum": 1.0,
+        "mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": 0.9282118670379542,
+          "point": 0.9468251474773214,
+          "upper": 0.9650906174743131
+        },
+        "median": 0.9582608695652174,
+        "minimum": 0.8285714285714285,
+        "standard_deviation": 0.05187703875234179
+      }
+    }
+  },
+  "paired_statistics": {
+    "gradient_boosting": {
+      "balanced_accuracy": {
+        "delta_maximum": 0.04166666666666674,
+        "delta_mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": -0.04861111111111112,
+          "point": -0.027777777777777776,
+          "upper": -0.008333333333333352
+        },
+        "delta_median": 0.0,
+        "delta_minimum": -0.20833333333333326,
+        "delta_standard_deviation": 0.05720724797562877,
+        "proportion_delta_greater_than_zero": 0.16666666666666666,
+        "wilcoxon": {
+          "alternative": "two-sided",
+          "p_value": 0.01660558981854537,
+          "statistic": 86.5,
+          "zero_difference_policy": "Pratt includes zero differences in ranking"
+        }
+      },
+      "macro_f1": {
+        "delta_maximum": 0.04217695348130135,
+        "delta_mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": -0.04970331401569664,
+          "point": -0.02815889768221497,
+          "upper": -0.008333222896266378
+        },
+        "delta_median": 0.0,
+        "delta_minimum": -0.21778584392014522,
+        "delta_standard_deviation": 0.05847153070083753,
+        "proportion_delta_greater_than_zero": 0.16666666666666666,
+        "wilcoxon": {
+          "alternative": "two-sided",
+          "p_value": 0.04311938750199049,
+          "statistic": 104.0,
+          "zero_difference_policy": "Pratt includes zero differences in ranking"
+        }
+      }
+    },
+    "mlp_11_parameter": {
+      "balanced_accuracy": {
+        "delta_maximum": 0.08333333333333326,
+        "delta_mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": -0.044444444444444446,
+          "point": -0.022222222222222223,
+          "upper": -0.0013888888888889137
+        },
+        "delta_median": 0.0,
+        "delta_minimum": -0.20833333333333326,
+        "delta_standard_deviation": 0.060661003482883835,
+        "proportion_delta_greater_than_zero": 0.13333333333333333,
+        "wilcoxon": {
+          "alternative": "two-sided",
+          "p_value": 0.03107220641719998,
+          "statistic": 92.5,
+          "zero_difference_policy": "Pratt includes zero differences in ranking"
+        }
+      },
+      "macro_f1": {
+        "delta_maximum": 0.08391608391608396,
+        "delta_mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": -0.04420457097130143,
+          "point": -0.022583917107234397,
+          "upper": -0.0026949013546839614
+        },
+        "delta_median": 0.0,
+        "delta_minimum": -0.21778584392014522,
+        "delta_standard_deviation": 0.06194500511922156,
+        "proportion_delta_greater_than_zero": 0.16666666666666666,
+        "wilcoxon": {
+          "alternative": "two-sided",
+          "p_value": 0.0731401104406394,
+          "statistic": 109.5,
+          "zero_difference_policy": "Pratt includes zero differences in ranking"
+        }
+      }
+    },
+    "rbf_svc": {
+      "balanced_accuracy": {
+        "delta_maximum": 0.08333333333333337,
+        "delta_mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": -0.022222222222222192,
+          "point": -0.004166666666666652,
+          "upper": 0.012500000000000015
+        },
+        "delta_median": 0.0,
+        "delta_minimum": -0.125,
+        "delta_standard_deviation": 0.050559607854097854,
+        "proportion_delta_greater_than_zero": 0.3333333333333333,
+        "wilcoxon": {
+          "alternative": "two-sided",
+          "p_value": 0.932805434372276,
+          "statistic": 201.0,
+          "zero_difference_policy": "Pratt includes zero differences in ranking"
+        }
+      },
+      "macro_f1": {
+        "delta_maximum": 0.08391608391608396,
+        "delta_mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": -0.022574738363273044,
+          "point": -0.004462325333468709,
+          "upper": 0.012492918313570484
+        },
+        "delta_median": 0.0,
+        "delta_minimum": -0.12698412698412698,
+        "delta_standard_deviation": 0.051246697005991035,
+        "proportion_delta_greater_than_zero": 0.3333333333333333,
+        "wilcoxon": {
+          "alternative": "two-sided",
+          "p_value": 0.9161669962598081,
+          "statistic": 200.0,
+          "zero_difference_policy": "Pratt includes zero differences in ranking"
+        }
+      }
+    },
+    "rff_256": {
+      "balanced_accuracy": {
+        "delta_maximum": 0.16666666666666674,
+        "delta_mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": -0.019444444444444424,
+          "point": 0.005555555555555558,
+          "upper": 0.030555555555555537
+        },
+        "delta_median": 0.0,
+        "delta_minimum": -0.16666666666666652,
+        "delta_standard_deviation": 0.0672151764775964,
+        "proportion_delta_greater_than_zero": 0.36666666666666664,
+        "wilcoxon": {
+          "alternative": "two-sided",
+          "p_value": 0.5560464442142687,
+          "statistic": 177.0,
+          "zero_difference_policy": "Pratt includes zero differences in ranking"
+        }
+      },
+      "macro_f1": {
+        "delta_maximum": 0.1678321678321678,
+        "delta_mean_interval": {
+          "bootstrap_resamples": 2000,
+          "confidence_level": 0.95,
+          "lower": -0.018321351653364595,
+          "point": 0.005493911666246553,
+          "upper": 0.031097940304462036
+        },
+        "delta_median": 0.0,
+        "delta_minimum": -0.1760467134853626,
+        "delta_standard_deviation": 0.06866072716210808,
+        "proportion_delta_greater_than_zero": 0.36666666666666664,
+        "wilcoxon": {
+          "alternative": "two-sided",
+          "p_value": 0.5013761613392471,
+          "statistic": 173.0,
+          "zero_difference_policy": "Pratt includes zero differences in ranking"
+        }
+      }
+    }
+  }
+}

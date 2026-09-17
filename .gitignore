@@ -10,3 +10,12 @@
 main.pdf
 build/
 .DS_Store
+
+# Required vector figure assets; manuscript/build PDFs remain ignored.
+!figures/results_performance.pdf
+!figures/results_paired_delta.pdf
+!figures/results_rank_change.pdf
+
+# Optional result-only analysis caches.
+__pycache__/
+*.pyc

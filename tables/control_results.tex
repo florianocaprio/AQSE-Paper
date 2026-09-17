@@ -1,0 +1,20 @@
+% Exact control-summary extract, no new control evaluation.
+\begin{table}[t]
+\caption{Control balanced accuracy. Each cell gives the canonical mean and 95\% bootstrap interval. The negative-control intervals condition on one shared dataset.}
+\label{tab:control-results}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lcc}
+\toprule
+Method & TRAIN-label control & Positive control \\
+\midrule
+TQK & \shortstack{0.6146\\{}[0.5333, 0.6958]} & \shortstack{0.9813\\{}[0.9625, 0.9958]} \\
+RBF-SVC & \shortstack{0.6271\\{}[0.5479, 0.7083]} & \shortstack{0.9792\\{}[0.9646, 0.9917]} \\
+MLP-11 & \shortstack{0.5521\\{}[0.4750, 0.6292]} & \shortstack{0.9708\\{}[0.9542, 0.9875]} \\
+RFF-256 & \shortstack{0.5104\\{}[0.4417, 0.5792]} & \shortstack{0.9688\\{}[0.9479, 0.9854]} \\
+Grad. boosting & \shortstack{0.5354\\{}[0.4792, 0.5855]} & \shortstack{0.9333\\{}[0.9000, 0.9625]} \\
+\bottomrule
+\end{tabular}
+\end{table}

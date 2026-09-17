@@ -1,0 +1,133 @@
+{
+  "completed_replicas": {
+    "main": 30,
+    "negative_control": 12,
+    "positive_control": 12
+  },
+  "json_pointer_map": {
+    "negative": "/controls/negative_permutation_control/balanced_accuracy",
+    "positive": "/controls/positive_mechanism_control/aggregate/{quantum_balanced_accuracy,baseline_balanced_accuracy}",
+    "positive_paired": "/controls/positive_mechanism_control/aggregate/delta_by_baseline"
+  },
+  "negative": {
+    "gradient_boosting": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.4791666666666666,
+      "point": 0.5354166666666668,
+      "upper": 0.5854687499999999
+    },
+    "mlp_11_parameter": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.4749999999999999,
+      "point": 0.5520833333333334,
+      "upper": 0.6291666666666668
+    },
+    "quantum": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.5332812499999999,
+      "point": 0.6145833333333334,
+      "upper": 0.6958333333333333
+    },
+    "rbf_svc": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.5479166666666667,
+      "point": 0.6270833333333333,
+      "upper": 0.7083333333333334
+    },
+    "rff_256": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.44166666666666665,
+      "point": 0.5104166666666666,
+      "upper": 0.5792187499999998
+    }
+  },
+  "positive": {
+    "gradient_boosting": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.9000000000000002,
+      "point": 0.9333333333333332,
+      "upper": 0.9625
+    },
+    "mlp_11_parameter": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.9541666666666669,
+      "point": 0.9708333333333333,
+      "upper": 0.9874999999999999
+    },
+    "quantum": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.9625,
+      "point": 0.9812500000000001,
+      "upper": 0.9958333333333332
+    },
+    "rbf_svc": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.9645833333333332,
+      "point": 0.9791666666666666,
+      "upper": 0.9916666666666667
+    },
+    "rff_256": {
+      "bootstrap_resamples": 2000,
+      "confidence_level": 0.95,
+      "lower": 0.9479166666666666,
+      "point": 0.96875,
+      "upper": 0.9854166666666666
+    }
+  },
+  "positive_paired": {
+    "gradient_boosting": {
+      "interval": {
+        "bootstrap_resamples": 2000,
+        "confidence_level": 0.95,
+        "lower": 0.020833333333333325,
+        "point": 0.047916666666666635,
+        "upper": 0.0770833333333333
+      },
+      "wilcoxon_p": 0.01171875
+    },
+    "mlp_11_parameter": {
+      "interval": {
+        "bootstrap_resamples": 2000,
+        "confidence_level": 0.95,
+        "lower": -0.00416666666666667,
+        "point": 0.010416666666666657,
+        "upper": 0.024999999999999984
+      },
+      "wilcoxon_p": 0.3125
+    },
+    "rbf_svc": {
+      "interval": {
+        "bootstrap_resamples": 2000,
+        "confidence_level": 0.95,
+        "lower": -0.00833333333333334,
+        "point": 0.002083333333333335,
+        "upper": 0.012500000000000011
+      },
+      "wilcoxon_p": 1.0
+    },
+    "rff_256": {
+      "interval": {
+        "bootstrap_resamples": 2000,
+        "confidence_level": 0.95,
+        "lower": -0.004166666666666642,
+        "point": 0.01250000000000002,
+        "upper": 0.029166666666666702
+      },
+      "wilcoxon_p": 0.23046875
+    }
+  },
+  "schema": "aqse.paper.pass4.control-extract.v1",
+  "source_commit": "0ed58cfd4a1680ee111f91bb44af7ab101d4c01a",
+  "source_git_blob": "ef8e8b5363c07c392a3e382ea344eacfc28f5330",
+  "source_path": "paper/replicated-study-2026/final_report.json",
+  "source_repository": "florianocaprio/AQSE"
+}
