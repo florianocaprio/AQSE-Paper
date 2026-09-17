@@ -1,0 +1,12 @@
+# LaTeX build products. Scientific source and publication figures remain tracked.
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+main.pdf
+build/
+.DS_Store
