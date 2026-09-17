@@ -1,0 +1,3 @@
+# Preserve the byte identities of released result inputs, including CRLF CSV.
+analysis/pass4/inputs/* -text
+analysis/pass4/inputs/replicas.csv whitespace=cr-at-eol

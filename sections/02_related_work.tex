@@ -1,0 +1,47 @@
+\section{Related Work}
+\label{sec:related_work}
+
+\subsection{Quantum Kernels and Task-Dependent Inductive Bias}
+
+Schuld and Killoran~\cite{schuld2019feature} formulated quantum data encodings as feature maps, linking state preparation and overlap evaluation to classical kernel learning. Havl\'{i}\v{c}ek \emph{et al.}~\cite{havlicek2019supervised} implemented quantum feature-space learning on superconducting hardware. These studies established a mechanism for constructing kernels from quantum states. They did not establish that an arbitrary quantum feature map improves classification of arbitrary classical data.
+
+For a pure-state encoding $|\psi_{\boldsymbol{\theta}}(\mathbf{x})\rangle$, the fidelity kernel used in AQSE is
+\begin{equation}
+ k_{\boldsymbol{\theta}}(\mathbf{x},\mathbf{x}') =
+ \bigl|\langle\psi_{\boldsymbol{\theta}}(\mathbf{x})
+ \mid\psi_{\boldsymbol{\theta}}(\mathbf{x}')\rangle\bigr|^2.
+ \label{eq:fidelity-kernel}
+\end{equation}
+The circuit and encoding determine which inputs are similar under this kernel. Huang \emph{et al.}~\cite{huang2021power} showed why access to data changes quantum--classical learning comparisons: classical predictors can exploit samples even when reproducing an underlying quantum computation is difficult. Conversely, Liu \emph{et al.}~\cite{liu2021rigorous} established a supervised-learning separation for a constructed task under a classical hardness assumption. That result does not transfer without its assumptions to sensor-noise classification.
+
+Problem structure can guide kernel construction. Glick \emph{et al.}~\cite{glick2024covariant} developed covariant kernels for data with group structure. Shin \emph{et al.}~\cite{shin2026tensor} characterized embedding quantum kernels through entangled tensor kernels, separating the roles of local data maps and a circuit-dependent core tensor. These perspectives connect inductive bias to the encoding and circuit structure. AQSE does not derive its circuit from a symmetry of the sensor task or establish classical intractability. Its claim is limited to evaluating a specified representation against declared comparators.
+
+\subsection{Trainable Embeddings and Geometric Optimization}
+
+The encoding itself constrains a variational model. Schuld \emph{et al.}~\cite{schuld2021encoding} related data-encoding gates to the accessible Fourier structure of the model. Repeated encoding can enlarge that structure, but additional expressivity does not determine generalization. Hubregtsen \emph{et al.}~\cite{hubregtsen2022training} optimized quantum embedding kernels through kernel-target alignment and studied finite-sampling and device-noise effects. Alignment supplies a training objective for the representation. It does not directly measure prediction error on a held-out population.
+
+QNG uses the real part of the quantum geometric tensor to account for the local geometry of parameterized states~\cite{stokes2020qng}. AQSE uses a damped empirical Fubini--Study metric in its optimizer. This parameter-space metric must be distinguished from the spectrum of the Gram matrix over training examples. The former determines an update direction; the latter describes similarities between encoded samples. A change in either quantity is not, by itself, evidence of improved test performance.
+
+Rodriguez-Grasa \emph{et al.}~\cite{rodriguez2025neural} proposed neural quantum kernels obtained from trained quantum neural networks. Their method learns an embedding before constructing the kernel matrix. AQSE instead optimizes a fidelity kernel through its declared alignment objective. Its downstream classical perceptron and Nystr\"om map belong to a separate integration path. In AQSE, the classical downstream model does not train the quantum embedding jointly with the kernel objective.
+
+\subsection{Trainability, Bandwidth, and Kernel Concentration}
+
+McClean \emph{et al.}~\cite{mcclean2018barren} identified regimes in which gradients of parameterized quantum circuits become exponentially small. Thanasilp \emph{et al.}~\cite{thanasilp2024concentration} analyzed exponential concentration of quantum kernel values under conditions involving the encoding, measurements, entanglement, or noise. These results concern scaling and estimation requirements under specified assumptions. They do not imply that every eight-qubit classifier suffers from the same failure mode.
+
+Input scaling is another design variable. Shaydulin and Wild~\cite{shaydulin2022bandwidth} showed that quantum kernel bandwidth can affect generalization. In AQSE, preprocessing and its fitting population are therefore part of the model definition rather than incidental data preparation. The harmonic benchmark also treats phase as a circular coordinate, while the demonstrator's State8 profile has different semantics.
+
+We use effective rank, the largest-eigenvalue fraction of the trace, and checkpoint-dependent spectra as finite-sample diagnostics. These quantities can expose simple empirical degeneracies. They do not measure task alignment on their own, quantify entanglement, or rule out concentration as qubit count increases. Exact-state simulation also excludes the shot-estimation and hardware-noise costs addressed in concentration and trainability analyses.
+
+\subsection{Comparative Evaluation and Selection Effects}
+
+In a direct precedent in IEEE Transactions on Quantum Engineering, Alvarez-Estevez~\cite{alvarez2025benchmarking} compared quantum kernel estimation and training with different feature maps for classification. The study reported mixed task-dependent effects of training. Schnabel and Roth~\cite{schnabel2025scrutiny} examined fidelity and projected kernels across classification and regression problems. Their analysis identified roles for regularization, bandwidth, and other design choices. The preprint by Bowles \emph{et al.}~\cite{bowles2024benchmarking} compared several quantum model families with classical alternatives and emphasized the dependence of conclusions on datasets and benchmarking choices.
+
+Prior work already covers broad model comparisons and spectral diagnostics. AQSE contributes a sensor-derived test case with a fixed replication count, recorded seeds, episode-level partitions, and an explicit selection-before-test sequence. Its comparator set spans kernel, neural, random-feature, and ensemble models. The comparison does not equalize hypothesis classes or computational budgets. In particular, 16 circuit parameters do not include the fitted coefficients of the downstream SVC. Likewise, 256 random Fourier features do not constitute a capacity match to an eight-qubit fidelity kernel.
+
+Cawley and Talbot~\cite{cawley2010selection} showed how model selection can overfit a finite validation criterion and bias performance assessment. This motivates an untouched test partition and explicit reporting of search budgets. It also constrains the interpretation of AQSE's permutation control. Permuting training labels while retaining true validation labels leaves supervised information in checkpoint and hyperparameter selection. Above-chance performance in that control is therefore insufficient, on its own, to diagnose test leakage or to establish unexplained quantum signal. The result must be reported without redefining the completed experiment.
+
+\subsection{Classical Interfaces and Scope of the Evidence}
+
+Nystr\"om approximation constructs a lower-dimensional representation from kernel evaluations against a landmark set~\cite{williams2001nystrom}. AQSE applies a regularized form of this construction to quantum-kernel similarities in its AFSE module. Random Fourier features provide a different classical approximation for stationary kernels~\cite{rahimi2007random}. Both methods make explicit that a representation derived from a quantum kernel can contain classical preprocessing and downstream learning. Attribution requires examining the complete predictor rather than assigning its performance to the circuit alone.
+
+The resulting framework connects conventional multisensor processing~\cite{hall1997fusion} to quantum feature maps, but it is not a demonstration of entanglement-enhanced sensing~\cite{degen2017sensing}. The replicated benchmark concerns classical features from a simulated magnetometer. Its outcomes support statements about that task and learning protocol. They do not validate the network demonstrator's causal attribution, the AFSE--perceptron path, or deployment on physical quantum hardware.

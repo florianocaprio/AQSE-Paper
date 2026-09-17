@@ -1,0 +1,27 @@
+\begin{table}[t]
+\caption{Primary magnetometer corpus. All uniform draws are made per episode; nuisance ranges are shared by both labels.}
+\label{tab:benchmark-domain}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{0.43\columnwidth}p{0.52\columnwidth}@{}}
+\toprule
+Quantity & Fixed value or distribution \\
+\midrule
+Primary replicas & 30 new corpora \\
+Episodes per corpus & 120 (60 per class) \\
+TRAIN / VALIDATION / TEST & 72 / 24 / 24 episodes \\
+Episode acquisition & 10 s, 100 Hz, 1,000 samples \\
+Harmonic amplitude & $A\sim\mathcal U(6,10)$ nT \\
+Harmonic frequency & $f\sim\mathcal U(4,8)$ Hz \\
+Initial phase & $\phi\sim\mathcal U(-\pi,\pi)$ rad \\
+Constant temperature & $T\sim\mathcal U(292.15,294.15)$ K \\
+Nominal noise ($y=-1$) & $\sigma_\epsilon\sim\mathcal U(0.25,0.75)$ nT (per sample) \\
+Elevated noise ($y=+1$) & $\sigma_\epsilon\sim\mathcal U(1.5,3.0)$ nT (per sample) \\
+Component clipping limit & $800~\mu$T in absolute value \\
+Feature window / hop & 1 s / 0.5 s \\
+Retained window & Ordinal 9, samples $[450,550)$ \\
+QNG bank / SVC fit & 32 balanced rows / all 72 TRAIN rows \\
+\bottomrule
+\end{tabular}
+\end{table}

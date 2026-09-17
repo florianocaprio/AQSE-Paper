@@ -1,0 +1,41 @@
+{
+  "schema": "aqse.pass4.input-manifest.v1",
+  "repository": "florianocaprio/AQSE",
+  "commit": "0ed58cfd4a1680ee111f91bb44af7ab101d4c01a",
+  "inputs": [
+    {
+      "local_path": "inputs/replicas.csv",
+      "sha256": "9324a6d6eae1788845cac435eb29f47b1f5e64c63cba570198378fa7b61a1092",
+      "bytes": 18399,
+      "kind": "byte-identical full canonical result file",
+      "source_path": "paper/replicated-study-2026/replicas.csv",
+      "source_git_blob": "c62e6aa88d0c8822e27b660a21ea366f7f323eaa"
+    },
+    {
+      "local_path": "inputs/aggregate_statistics.json",
+      "sha256": "25db46be16fcc5cec649eb5e0685aeae4aac355690a1caac818ad4f7e93eb6aa",
+      "bytes": 10932,
+      "kind": "byte-identical full canonical result file",
+      "source_path": "paper/replicated-study-2026/aggregate_statistics.json",
+      "source_git_blob": "e033ea1b9c3d6cd7c6b1a3d75ea9e8d14841fdb8"
+    },
+    {
+      "local_path": "inputs/kernel_initial_selected_final.csv",
+      "sha256": "139390a688908920dee5bab0385d30014ba5ee257dbcad533795ab8ef639216f",
+      "bytes": 3748,
+      "kind": "curated field-preserving extract, not a full-file copy",
+      "source_path": "paper/replicated-study-2026/kernel_diagnostics.csv",
+      "source_git_blob": "f1c424c8e9848214e4694f73e9b1210003604e67"
+    },
+    {
+      "local_path": "inputs/control_summary.json",
+      "sha256": "473fbfb07a0317157b3bc16208036e8ffa1302b44f02224172189a2891a177a0",
+      "bytes": 3823,
+      "kind": "curated field-preserving extract, not a full-file copy",
+      "source_path": "paper/replicated-study-2026/final_report.json",
+      "source_git_blob": "ef8e8b5363c07c392a3e382ea344eacfc28f5330"
+    }
+  ],
+  "kernel_extraction": "One row per replica. Read initial checkpoint 0, selected=True checkpoint, and final checkpoint 10. Map effective_rank and spectral_concentration to initial/selected/final columns; preserve exact numbers.",
+  "control_extraction": "completed_replicas plus controls/negative_permutation_control/balanced_accuracy and controls/positive_mechanism_control/aggregate; original JSON pointers are included in control_summary.json."
+}

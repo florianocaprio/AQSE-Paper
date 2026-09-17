@@ -1,0 +1,54 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Meaning of the Primary Result}
+\label{sec:discussion-primary}
+
+The primary study does not support a predictive advantage of the tested TQK over RBF-SVC. The paired estimate and its interval concern the complete fitting and selection procedures under the specified simulator distribution. They do not compare all possible quantum and classical models. The interval permits small effects in either direction, and no equivalence margin was specified. Neither the large Wilcoxon $p$-value nor the ten wins, ten ties, and ten losses establishes equality of the methods.
+
+High absolute accuracy answers a different question. Both kernel methods classified the controlled noise regimes with mean balanced accuracy above 0.95, while MLP and gradient boosting had higher observed means. The task therefore supplies a discriminative signal that several classical model families can exploit. Its labels are determined by separated noise ranges, and its features include SNR, variance, and spectral power. This construction provides a controlled test of the representation, not evidence that classification requires quantum computation. The result belongs to the task-dependent empirical setting studied in quantum-kernel benchmarks~\cite{alvarez2025benchmarking,schnabel2025scrutiny}; it does not contradict learning separations established for different data constructions~\cite{liu2021rigorous}.
+
+The secondary comparisons help describe this setting but do not replace the primary test. Their interpretation depends on the stated metric and testing family. Section~\ref{sec:results-variation} reports that dependence rather than choosing a post-hoc correction that supports a preferred conclusion. The observed ordering also cannot be attributed solely to parameter count: the TQK predictor includes a fitted SVC, and the search budgets and preprocessing differ across families.
+
+\subsection{Geometric Change and Predictive Utility}
+\label{sec:discussion-geometry}
+
+The selected Gram matrices have spectral structure distinct from a rank-one matrix and from the identity matrix. This excludes those two simple descriptions of the recorded finite-sample kernels. It does not establish a general expressivity property, a favorable margin, or a generalization guarantee. Effective rank and largest-eigenvalue share depend on the kernel eigenvalues, not on the labels. Kernels with the same spectrum can have different alignments with a fixed label vector. Predictive utility consequently cannot be inferred from either scalar summary alone.
+
+Three geometric objects must remain separate. The QNG preconditioner uses the empirical Fubini--Study metric of the parameterized states. The training objective uses centered kernel--target alignment. The reported spectra belong to uncentered TRAIN Gram matrices. The first preconditions a parameter update; improving the second is a training objective; changing the third is a descriptive observation. None is identical to improving held-out SVC accuracy~\cite{stokes2020qng,cortes2012alignment}.
+
+The four exploratory correlations did not resolve a monotonic association between the selected spectral summaries and TEST performance. Their broad intervals do not establish that kernel geometry is irrelevant. They constrain what can be concluded from these two summaries in 30 realizations. The analysis used one selected kernel per replica and avoided treating correlated checkpoints as independent evidence. It also cannot establish an absence of concentration as qubit count grows. Concentration results concern specified embeddings, data distributions, and measurement resources~\cite{thanasilp2024concentration}; this experiment fixes eight qubits and evaluates exact statevectors.
+
+\subsection{What Checkpoint Selection Reveals}
+\label{sec:discussion-selection}
+
+All trajectories contain ten accepted QNG updates, but VALIDATION retains the initial checkpoint in 19 replicas. This does not mean that 19 optimizations failed. The selection rule favors the earlier checkpoint when balanced accuracy and macro-F1 tie. An initial selection can therefore reflect a tie or a better validation score. Conversely, the 11 updated selections do not quantify a TEST improvement caused by training. The unselected initial predictors were not evaluated on TEST, so the required within-replica counterfactual scores are absent.
+
+The objective and evaluation data also differ. Alignment is optimized on 32 training rows, whereas the SVC is fitted on all 72 training rows and selected using 24 validation episodes. The bank objective is not the SVC's held-out classification risk. Ten accepted steps establish execution of the prescribed optimizer, not convergence to an optimal embedding. Without a matched fixed-kernel or ordinary-gradient arm, the study cannot distinguish the effect of representation training from the effect of the QNG preconditioner.
+
+The larger observed TQK dispersion motivates a robustness question, but does not answer its cause. Dataset generation, partition assignment, initialization, and model fitting vary together. Validation-based selection can itself be sensitive to finite samples~\cite{cawley2010selection}; the present data do not identify that mechanism as the source of the lower-scoring TQK replicas. We therefore retain all replicas and avoid interpreting the selection distribution as an optimizer ranking.
+
+\subsection{Interpretation of the Controls}
+\label{sec:discussion-controls}
+
+The TRAIN-label control did not meet its prespecified chance-compatibility check for TQK and RBF. That finding remains a limitation, not a result to remove or relabel as a successful check. The implemented intervention breaks the training label assignment while preserving correct validation labels. TQK and RBF still use those labels to select among candidate models. Selection is part of the supervised procedure. A candidate fitted to permuted labels can be retained because its boundary happens to agree with validation structure. This is a plausible route to above-chance performance, not an explanation established by the recorded runs.
+
+The fact that these two methods perform a configuration search is compatible with that hypothesis. It is not a controlled test of the hypothesis: the model families, preprocessing, and budgets differ, and no paired control removes validation supervision. The 12 runs also re-split one teacher-generated dataset. Their intervals describe randomization conditional on that dataset, not variation across newly sampled sensor corpora. The control therefore neither demonstrates TEST leakage nor certifies its absence. An audit claim about information isolation requires the recorded implementation and access sequence, not accuracy near chance alone.
+
+The positive control addresses another boundary. It checks the fitting pipeline on examples whose labels derive from a TQK-teacher fidelity contrast. Retention of the largest contrasts enriches the margin, and the student applies its own fitted preprocessing. Success supports operation of the pipeline on this constructed signal. It does not establish a representation unavailable to classical kernels, as the primary RBF comparison within that control provides no supported TQK advantage. Neither control supplies evidence about physical magnetometer deployment.
+
+\subsection{Implications for Contextual Sensor Processing}
+\label{sec:discussion-framework}
+
+AQSE provides an explicit interface between observations, feature profiles, a trainable kernel, and downstream models. Its engineering contribution is the separation and versioning of those interfaces, together with traceable evaluation. The quantum state represents an encoded classical feature vector. It is not a reconstruction of the sensor's microscopic state. Likewise, the AFSE coordinates are a classical Nystr\"om transformation of kernel similarities, not an additional quantum algorithm~\cite{williams2001nystrom}.
+
+The replicated benchmark isolates the harmonic-feature TQK--SVC route. Its results cannot be assigned to the network State8--AFSE--MLP route, whose reference construction, features, embedding approximation, and classifier differ. A device moving through a spatial field may diverge from its peers without being faulty. Shared instrumental changes may resemble an environmental change. The framework therefore reports pattern compatibility and data-quality status rather than treating a class score as identification of a physical cause~\cite{aqse2026canonical}.
+
+For the same reason, a high score or a small AFSE residual is not a deployment certificate. The residual threshold and score gates are engineering heuristics. Their false-alarm and abstention behavior must be evaluated on the complete acquisition and inference path. Versioned bundles make that path identifiable, but do not supply calibration or field validity. The practical implication of the current benchmark is to retain classical comparators for the same task output rather than assume that an added quantum representation improves the service.
+
+\subsection{Follow-up Questions}
+\label{sec:discussion-future}
+
+A subsequent study could compare fixed initialization, ordinary-gradient training, and QNG on matched episodes and declared selection budgets. It should also compare circular phase preprocessing and simple noise-sensitive baselines, such as SNR or residual-variance rules. These would be new ablations, not retroactive replacements for the frozen study. A separate label-null control could permute TRAIN and VALIDATION labels before any model selection, using fresh datasets and a prospectively fixed analysis.
+
+Extension to the application requires different evidence: complete network evaluation under motion and device perturbations, then measurements from physical sensors. Finite-shot or QPU evaluation would additionally require explicit accounting for state preparation, kernel estimation, optimization, and classical processing. These are proposed experiments. None was performed during manuscript analysis, and none changes the reported primary result.

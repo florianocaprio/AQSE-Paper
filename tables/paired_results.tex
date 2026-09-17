@@ -1,0 +1,25 @@
+% Canonical unadjusted inference; W/T/L is a descriptive post hoc count.
+\begin{table*}[t]
+\caption{Paired TEST comparisons. Differences are TQK minus baseline. Intervals and unadjusted two-sided Pratt--Wilcoxon $p$-values are canonical. W/T/L denotes balanced-accuracy wins, ties, and losses with tolerance $10^{-12}$; this tolerance is not used to recompute the canonical tests.}
+\label{tab:paired-results}
+\centering
+\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lccccl}
+\toprule
+Baseline & Metric & Mean difference & 95\% interval & $p$ & BA W/T/L \\
+\midrule
+RBF-SVC (primary) & BA & -0.0042 & [-0.0222, +0.0125] & 0.9328 & 10/10/10 \\
+ & Macro-F1 & -0.0045 & [-0.0226, +0.0125] & 0.9162 &  \\
+\addlinespace[2pt]
+MLP-11 & BA & -0.0222 & [-0.0444, -0.0014] & 0.0311 & 4/13/13 \\
+ & Macro-F1 & -0.0226 & [-0.0442, -0.0027] & 0.0731 &  \\
+\addlinespace[2pt]
+RFF-256 & BA & +0.0056 & [-0.0194, +0.0306] & 0.5560 & 11/10/9 \\
+ & Macro-F1 & +0.0055 & [-0.0183, +0.0311] & 0.5014 &  \\
+\addlinespace[2pt]
+Gradient boosting & BA & -0.0278 & [-0.0486, -0.0083] & 0.0166 & 5/11/14 \\
+ & Macro-F1 & -0.0282 & [-0.0497, -0.0083] & 0.0431 &  \\
+\bottomrule
+\end{tabular}
+\end{table*}

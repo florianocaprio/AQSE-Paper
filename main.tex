@@ -1,0 +1,45 @@
+% AQSE: integrated author-review manuscript for IEEE Transactions on Quantum Engineering.
+% Standard, unmodified IEEEtran journal layout. No invented publication metadata.
+\documentclass[10pt,journal]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+\hypersetup{
+ pdftitle={AQSE: A Hybrid Quantum-Classical Framework for Contextual Sensor-Network Representation},
+ pdfauthor={Floriano Caprio, Matteo Tortora, Paolo Soda, Sunil Gentyala},
+ pdfsubject={Trainable quantum kernels for controlled magnetometer data},
+ pdfkeywords={kernel methods, magnetometers, quantum machine learning, quantum natural gradient, sensor networks}
+}
+
+\title{AQSE: A Hybrid Quantum--Classical Framework for Contextual Sensor-Network Representation}
+\input{frontmatter/authors}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\input{frontmatter/abstract}
+\end{abstract}
+\begin{IEEEkeywords}
+\input{frontmatter/index_terms}
+\end{IEEEkeywords}
+
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_aqse_framework}
+\input{sections/04_methodology}
+\input{sections/05_results}
+\input{sections/06_discussion}
+\input{sections/07_limitations}
+\input{sections/08_conclusion}
+\input{sections/09_availability}
+\input{sections/10_acknowledgment}
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+\end{document}

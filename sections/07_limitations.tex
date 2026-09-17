@@ -1,0 +1,26 @@
+\section{Limitations}
+\label{sec:limitations}
+
+\subsection{Domain and Sampling}
+
+The primary data come from one controlled simulator configuration: a static magnetometer, harmonic excitation, two separated white-noise ranges, and one predetermined feature window per episode. Thirty new corpora measure repeatability within that generator. They do not sample different device technologies, sites, calibration states, or application tasks. The benchmark does not include motion, correlated disturbances, drift, missing data, or changing class prevalence. Its conclusions cannot be transferred to the network demonstrator or to field measurements without separate evaluation.
+
+The finite samples limit precision. Each primary TEST contains 24 episodes and has balanced-accuracy resolution $1/24$. Some methods frequently attain the maximum score, reducing the range over which differences can be observed. No prospective power calculation or equivalence margin was specified. The percentile intervals quantify the recorded replication scheme, not uncertainty over all sensor environments or circuit designs.
+
+\subsection{Model Comparison and Attribution}
+
+The experiment fixes the circuit, encoding policy, ten-step optimization budget, QNG bank, and comparator configurations. TQK and RBF have different search spaces, while the other classical configurations are fixed. The quantum phase is treated periodically, whereas the classical phase remains a standardized scalar where standardization is used. Neither matched preprocessing nor matched computational budgets were tested. The 11 MLP parameters and 256 random features are reference counts, not equivalences to the full TQK--SVC hypothesis class. Strong performance on this task cannot establish a quantum contribution without the missing ablations.
+
+Only the selected quantum model has TEST scores. The archive cannot support a paired estimate of training benefit, a QNG-versus-gradient comparison, or an attribution of performance differences to entanglement. It contains no scaling experiment in qubit count, depth, training size, or number of shots. Effective rank and spectral concentration describe finite Gram matrices, not asymptotic trainability or classical simulation hardness.
+
+\subsection{Controls and Statistical Interpretation}
+
+The negative control preserves validation supervision and reuses a single synthetic teacher dataset. It is not a full label-null control, and its failed chance check for two methods remains unresolved. The positive control is mechanism-aligned and margin-enriched. Both controls differ from the physical data-generating task and must remain separate from the primary evidence.
+
+Secondary tests have no preregistered multiplicity correction. The sensitivity to retrospective family definitions is disclosed in Section~\ref{sec:results-variation}. Geometry--performance correlations are post hoc and imprecise; no discovered association was tested in a new dataset. The canonical Wilcoxon calculation also retains unrounded scores, so numerical near-ties can affect ranks. Its reproduction convention is preserved rather than silently changed. The bootstrap intervals are percentile intervals, not simultaneous, bias-corrected, or studentized bounds.
+
+\subsection{Execution and Operational Evidence}
+
+All quantum computations are exact statevector calculations on a classical backend. There is no finite-shot uncertainty, quantum-device noise, transpilation overhead, or QPU execution in the reported experiment. The recorded durations combine work across methods and cannot support a method-specific speed comparison. Sensor-noise simulation does not substitute for a quantum-hardware noise model.
+
+The TEST ledger records a prescribed local workflow rather than enforcing an inaccessible holdout service. Test arrays exist in the process, and structural checks inspect their format and class support. Code review and provenance complement that guard; the ledger alone cannot prove absence of all unintended access. The report-only recovery preserves completed evaluations but adds no independent experimental evidence. Finally, the benchmark does not validate live alarm calibration, AFSE OOD detection, continuous adaptation, or hard real-time operation. These limits remain despite successful software execution.

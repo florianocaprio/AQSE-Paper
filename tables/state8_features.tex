@@ -1,0 +1,33 @@
+\begin{table}[t]
+\caption{State8 coordinates in the network demonstrator. The local and network profiles share $x_0$--$x_4$ and $x_7$.}
+\label{tab:state8}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}cll@{}}
+\toprule
+Index & Definition & Unit\\
+\midrule
+$x_0$ & $\operatorname{mean}_k d_i[k]$ & nT\\
+$x_1$ & $1.4826\operatorname{median}_k|d_i[k]-\operatorname{median}d_i|$ & nT\\
+$x_2$ & Least-squares slope of $d_i[k]$ versus time & nT/s\\
+$x_3$ & $10\log_{10}(\max(P_L,\epsilon)/\max(P_H,\epsilon))$ & dB\\
+$x_4$ & $\operatorname{mean}_k T_i[k]-\bar T_{i,0}$ & K\\
+\midrule
+\multicolumn{3}{@{}l}{Local profile}\\
+$x_5$ & $\sqrt{\operatorname{mean}_k(d_i[k+1]-d_i[k])^2}$ & nT\\
+$x_6$ & $\operatorname{corr}(d_i[0{:}399],d_i[1{:}400])$ & 1\\
+\midrule
+\multicolumn{3}{@{}l}{Network profile}\\
+$x_5$ & $\sqrt{\operatorname{mean}_k(d_i[k]-\operatorname{median}_{j\in\mathcal P_i}d_j[k])^2}$ & nT\\
+$x_6$ & $|\mathcal P_i|^{-1}\sum_{j\in\mathcal P_i}\operatorname{corr}(d_i,d_j)$ & 1\\
+\midrule
+$x_7$ & Received vector samples / 400 & 1\\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{\columnwidth}\footnotesize
+$P_L$ and $P_H$ integrate a linearly detrended, Hann-windowed one-sided periodogram over $[0.25,2)$ and $[2,20]$~Hz. The power floor is $\epsilon=10^{-12}$~nT$^2$. Correlations are Pearson coefficients. Slice endpoints are exclusive.
+\end{minipage}
+\end{table}
