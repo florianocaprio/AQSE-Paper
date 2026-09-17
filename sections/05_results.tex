@@ -36,7 +36,7 @@ As a post-hoc multiplicity sensitivity check, applying Holm's procedure~\cite{ho
 \label{fig:results-performance}
 \end{figure}
 
-TQK had the largest observed between-replica standard deviation, 0.0544, compared with 0.0371 for RBF and 0.0284 for boosting. It reached balanced accuracy 1 in 13 of 30 replicas but fell below 0.90 in five. The corresponding below-0.90 counts were two for RBF, zero for MLP, five for RFF, and zero for boosting. The minimum TQK score was 0.7917 in replica 15. This replica is retained in every reported aggregate. Figure~\ref{fig:results-performance} shows the score distributions; no test of equal variances is used. These descriptive differences cannot isolate dataset, split, or initialization effects because those sources of randomness vary together.
+TQK had the largest observed between-replica standard deviation, 0.0544, compared with 0.0371 for RBF and 0.0284 for boosting. It reached balanced accuracy 1 in 13 of 30 replicas but fell below 0.90 in five. The corresponding below-0.90 counts were two for RBF, zero for MLP, five for RFF, and zero for boosting. The minimum TQK score was 0.7917 in replica 15. This replica is retained in every reported aggregate. Fig.~\ref{fig:results-performance} shows the score distributions; no test of equal variances is used. These descriptive differences cannot isolate dataset, split, or initialization effects because those sources of randomness vary together.
 
 \subsection{Kernel Geometry and Checkpoint Selection}
 \label{sec:results-kernel}

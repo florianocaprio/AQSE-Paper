@@ -1,40 +1,36 @@
 # AQSE manuscript for IEEE Transactions on Quantum Engineering
 
-## Current draft
+## Complete author-review manuscript
 
-Passes 1-5 are integrated: Introduction, Related Work, AQSE Framework,
-Experimental Methodology, Results, Discussion, Limitations, and Conclusions.
-The core English manuscript is complete. Abstract, author information, final
-editorial integration and submission checks are still pending. This is not a
-submission-ready paper.
+The integrated English manuscript contains an abstract, Index Terms, the eight
+scientific sections, data/code availability, an AI-assistance acknowledgment,
+and the reference list. The review banner and empty author block have been removed.
+This is the complete manuscript prepared for author approval, not a declaration
+that all submission-portal requirements or all coauthor approvals are complete.
 
-- Manuscript branch: `paper/ieee-tqe-v1`.
-- Input manuscript revision: `1ffa0eaf2187a708ca897e6877a6e60f7ea2622e`.
-- Scientific execution revision: `091acf2e98b2b88720730eea276e253f0c96f5a6`.
+- Branch: `paper/ieee-tqe-v1`.
+- Input manuscript commit: `687978b9f7ca86f4250bef5b3314e5d9681be8eb`.
+- Scientific execution: `091acf2e98b2b88720730eea276e253f0c96f5a6`.
 - Published scientific snapshot: `0ed58cfd4a1680ee111f91bb44af7ab101d4c01a`.
-- Reporting recovery revision: `d42965ef6a38791fcdbdc1b7bbb3750a58d1f2f1`.
+- Reporting-only recovery: `d42965ef6a38791fcdbdc1b7bbb3750a58d1f2f1`.
 
-The five previous prose sections, all 30 bibliography records, figures,
-tables, previous editorial notes, and `analysis/pass4/` are byte-identical to
-the published Pass 4. This update adds three prose sections and a Pass 5 source
-and interpretation audit, and changes only this README and `main.tex` among
-the existing files. No scientific calculation was repeated.
+## Confirmed authors
 
-New manuscript files:
+Floriano Caprio (affiliation 1, corresponding author), Matteo Tortora (2),
+Paolo Soda (1, 3), and Sunil Gentyala (4). Affiliation wording and order are those
+provided by the corresponding author. The confirmed email is
+`f.caprio@unicampus.it`. See `frontmatter/authors.tex`.
 
-```text
-sections/06_discussion.tex
-sections/07_limitations.tex
-sections/08_conclusion.tex
-editorial/pass5-evidence-and-decisions.md
-```
+No IEEE membership grades, ORCIDs, funding, conflict-of-interest statement,
+publisher copyright, manuscript number, received date, or DOI have been invented.
+See `editorial/submission-checklist.md` for the remaining author declarations.
 
-## Compile
+## Build
 
-Use `main.tex`, pdfLaTeX and BibTeX, with the unmodified IEEEtran journal class
-and bibliography style. TikZ draws the two framework diagrams. The three
-results plots are included as vector PDFs, so Python is not needed to compile.
-No shell escape is required.
+Select `main.tex` as the root document. The source uses the unmodified IEEEtran
+journal class at 10 pt, standard margins, pdfLaTeX, BibTeX and TikZ. The three
+result figures are included as vector PDFs. Compilation does not run Python,
+AQSE, Docker, simulations, or the report-only analysis.
 
 ```sh
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
@@ -43,67 +39,58 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-A separate download script `compila_pdf.sh` provides the equivalent local
-build. Generated manuscript PDFs and LaTeX auxiliary files are not committed.
-Only the three named result-figure PDFs are source assets.
+Overleaf and a normal TeX Live/MacTeX installation provide the required packages.
+The downloadable delivery also contains `compila_pdf.sh` and a compiled PDF.
+A separate clean source ZIP contains only the manuscript dependencies and a
+prebuilt `main.bbl`; the full Git package additionally preserves the analyses
+and editorial audit trail. No font files or modified IEEE style files are bundled.
 
-## Reproduce results material
+## Source organization
 
-`analysis/pass4/README.md` describes the result-only reconstruction. Its inputs
-are two byte-identical canonical result files and two explicitly identified
-extracts. It recreates tables, CSV/JSON summaries, and optionally the plots.
-Original file and source identities are recorded in `input_manifest.json`.
+- `frontmatter/`: approved author metadata, abstract and Index Terms.
+- `sections/01_*` through `08_*`: scientific text.
+- `sections/09_availability.tex`, `10_acknowledgment.tex`: closing statements.
+- `figures/`: two TikZ sources and three previously generated result PDFs.
+- `tables/`: seven method and result tables.
+- `bibliography.bib`: the existing 30 reference records, unchanged.
+- `analysis/pass4/`: unchanged inputs, report-only script and analysis outputs.
+- `editorial/`: prior pass records, final integration audit and author checklist.
 
-```sh
-python3 analysis/pass4/reproduce_results.py
-# Optional, if NumPy, SciPy and Matplotlib are installed:
-python3 analysis/pass4/reproduce_results.py --figures
-```
+## Scientific boundary
 
-This never imports AQSE, fits models, generates states, accesses raw TEST
-arrays, or starts Docker. A separate `--canonical-root` check can compare the
-extracts against the published original report directory in a local AQSE clone.
-The paper's canonical statistics remain distinct from the new post-hoc tests.
+The network State8-AFSE-MLP demonstrator and the single-magnetometer harmonic
+TQK-SVC benchmark are separate routes. The 30 independent primary corpora test
+the latter. The preregistered predictive-advantage criterion was not met.
+The TRAIN-label control keeps validation supervision and reuses one teacher
+dataset. It is not a fully label-null experiment. The reported QNG trajectories
+lack TEST evaluations for the unselected initial models. No hardware advantage,
+field-deployment validity, or causal training benefit is claimed.
 
-## Scientific boundaries
+Pass 6 adds no experiment or statistical test and changes no frozen estimate.
+The bibliography, figures, tables, and every file in `analysis/pass4/` remain
+byte-identical to Pass 5. Limited prose edits define acronyms, disambiguate units,
+standardize route names and figure references, and remove an unexplained
+reference to an earlier experiment. All displayed scientific equations are unchanged.
 
-The network State8-AFSE-MLP demonstrator is not the replicated harmonic
-single-sensor TQK-SVC benchmark. The primary study has 30 new corpora. The
-positive control has 12 new teacher datasets. The negative control re-splits
-one teacher dataset 12 times, permutes only TRAIN labels, and retains true
-VALIDATION labels for selection.
+## IEEE/TQE status
 
-The primary predictive-advantage criterion was not met. Kernel rank and
-concentration do not establish expressivity, field validity or hardware
-advantage. The data do not contain TEST predictions from unselected initial
-checkpoints, so they do not identify a QNG-versus-fixed-kernel TEST effect.
-The extra geometry-performance associations and multiplicity sensitivities
-in Section V are explicitly post hoc, with scripts and seeds included.
+The TQE submission page, author-template guidance and AI-content policy were
+checked. TQE states that it has no page limit. The document follows a standard
+IEEE journal review layout; it does not impersonate the publisher's typeset
+version. The linked TQE v4 instructional PDF was available, but the interactive
+IEEE template selector did not return a downloadable TQE LaTeX archive during
+this review. The current portal/template must therefore be confirmed at upload.
+This limitation is recorded rather than replaced with a claimed verification.
 
-## Writing, template, and source workflow
+The authors must review the manuscript and the acknowledgment, supply ORCIDs
+where requested, and confirm funding and conflict declarations. No submission
+or publication license is executed by this package.
 
-Use concise academic English without em-dashes or promotional claims. Preserve
-observations, hypotheses, and limitations as separate statements. Source maps
-and editorial decisions are in `editorial/pass*-evidence-and-decisions.md`.
+## Git and Overleaf
 
-This uses IEEEtran journal mode, not a verified final TQE production template.
-Final template reconciliation, author list, affiliations, ORCIDs, funding,
-abstract, Index Terms and AI-assistance disclosure require author approval.
-
-All writing passes stay on `paper/ieee-tqe-v1`. The download uploader verifies
-the prior revision and allowlisted files, then performs a normal commit/push.
-It does not modify main, tags, experiment code or data, and does not merge.
-Avoid concurrent edits while applying a delivery. Unreviewed edits stop the
-uploader rather than being overwritten.
-
-GitHub publication does not automatically compile or synchronize Overleaf.
-Use the preview PDF or a separate review project before the final approved
-merge and pull into the connected Overleaf project.
-
-## Remaining integration
-
-Pass 6 covers the abstract, Index Terms, author-approved metadata, reference and
-cross-reference review, figure/layout checks, TQE template reconciliation, data
-and code availability wording, and AI-assistance disclosure. It does not authorize
-new experiments or replacement of the frozen results. Merge and Overleaf sync
-require explicit approval after review.
+The download uploader operates only on `paper/ieee-tqe-v1`, checks the baseline
+and file hashes, and requests `PUBBLICA` before copy/commit/push. It does not
+merge, change `main` or tags, discard author edits, or run analysis code.
+After author approval, a separately authorized merge can consolidate the paper.
+Do not assume that Overleaf automatically imports this review branch. Pull the
+agreed synchronized branch into the linked Overleaf project after the merge.

@@ -43,7 +43,7 @@ At most ten QNG updates are accepted, with learning rate 0.2, damping $10^{-3}$,
 
 \input{tables/comparator_budget}
 
-Table~\ref{tab:comparator-budget} specifies the four classical comparators. RBF-SVC, MLP, and RFF use a TRAIN-fitted standardizer on the original eight feature coordinates; gradient boosting uses those coordinates without standardization. In particular, the classical phase input remains a scalar in radians. These comparators do not use the nine-coordinate sine/cosine phase map of an earlier AQSE experiment. Shared observations therefore do not imply identical preprocessing.
+Table~\ref{tab:comparator-budget} specifies the four classical comparators. RBF-SVC, MLP, and RFF use a TRAIN-fitted standardizer on the original eight feature coordinates; gradient boosting uses those coordinates without standardization. In particular, the classical phase input remains a scalar in radians. They do not replace that coordinate with sine and cosine features. Shared observations therefore do not imply identical preprocessing.
 
 RBF selection maximizes validation balanced accuracy and then macro-F1, with smaller $C$ and then smaller $\gamma$ breaking ties. The other three classical configurations are fixed; their validation scores are recorded but do not select a grid point. Library defaults not overridden in Table~\ref{tab:comparator-budget} are those of the recorded scikit-learn version. Search budgets are not equalized across families.
 

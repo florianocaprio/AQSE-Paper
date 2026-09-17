@@ -1,14 +1,14 @@
 \section{AQSE Framework}
 \label{sec:framework}
 
-AQSE separates acquisition, feature construction, quantum representation, and classical prediction. Figure~\ref{fig:aqse-routes} distinguishes the network demonstrator from the component-level benchmark. Both use the same eight-qubit circuit and fidelity kernel. Their feature profiles, training populations, and prediction interfaces differ. The definitions below describe the implementation frozen with the canonical study records~\cite{aqse2026canonical}.
+AQSE separates acquisition, feature construction, quantum representation, and classical prediction. Fig.~\ref{fig:aqse-routes} distinguishes the network demonstrator from the component-level benchmark. Both use the same eight-qubit circuit and fidelity kernel. Their feature profiles, training populations, and prediction interfaces differ. The definitions below describe the implementation frozen with the canonical study records~\cite{aqse2026canonical}.
 
 \input{figures/aqse_routes}
 
 \subsection{Observations and Feature Profiles}
 \label{sec:framework-observations}
 
-A simulated network contains $N_s\in\{1,\ldots,8\}$ nodes. Each vector reading includes three measured field components, a timestamp, observed temperature, orientation, calibration identity, and quality flags. Simulator truth is retained separately. It may define experimental labels but is not an input to the feature extractor or predictor. The number of nodes is independent of the eight input coordinates and eight qubits. A circuit represents one accepted feature vector, not one qubit per sensor.
+A simulated network contains $N_s\in\{1,\ldots,8\}$ nodes. Here, magnetic field denotes magnetic flux density, expressed in tesla or nanotesla. Each vector reading includes three measured field components, a timestamp, observed temperature, orientation, calibration identity, and quality flags. Simulator truth is retained separately. It may define experimental labels but is not an input to the feature extractor or predictor. The number of nodes is independent of the eight input coordinates and eight qubits. A circuit represents one accepted feature vector, not one qubit per sensor.
 
 The demonstrator uses \emph{State8}, with separate local and network profiles. Let $R_i[k]$ map world-frame vectors to the sensor frame. The observed world-North component is
 \begin{equation}
@@ -28,7 +28,7 @@ The replicated benchmark uses a different, harmonic feature vector,
  (A,\phi,f,v,d,\mathrm{SNR},P_{\mathrm{peak}},T)^{\mathsf T},
  \label{eq:harmonic-vector}
 \end{equation}
-whose entries are oscillation amplitude, phase, frequency, variance, drift, signal-to-noise ratio, peak power spectral density (nT$^2$/Hz), and temperature. These are the extractor's fixed coordinates, not State8 coordinates. Each simulated episode contributes one predetermined window. The experiment therefore tests noise-regime classification through a direct kernel SVC. It does not measure the network demonstrator's causal attribution or AFSE classifier performance.
+whose entries are oscillation amplitude, phase, frequency, variance, drift, signal-to-noise ratio, peak power spectral density (PSD, in nT$^2$/Hz), and temperature. These are the extractor's fixed coordinates, not State8 coordinates. Each simulated episode contributes one predetermined window. The experiment therefore tests noise-regime classification through a direct kernel SVC. It does not measure the network demonstrator's causal attribution or AFSE classifier performance.
 
 \subsection{Training-Only Scaling and Angle Encoding}
 \label{sec:framework-encoding}
@@ -70,7 +70,7 @@ for $\nu\in\{y,z\}$. With operators acting from right to left,
                          \lvert0\rangle^{\otimes8}.
  \label{eq:encoded-state}
 \end{align}
-The entangler $E$ applies the even CZ edges $(0,1)$, $(2,3)$, $(4,5)$, and $(6,7)$ first, followed by $(1,2)$, $(3,4)$, and $(5,6)$. The graph is a path, not a ring. Figure~\ref{fig:tqk8-circuit} gives the gate sequence. A state preparation contains 32 single-qubit rotations and seven CZ gates. Every input angle appears twice; every trainable parameter appears once.
+The entangler $E$ applies controlled-$Z$ (CZ) gates on the even edges $(0,1)$, $(2,3)$, $(4,5)$, and $(6,7)$ first, followed by $(1,2)$, $(3,4)$, and $(5,6)$. The graph is a path, not a ring. Fig.~\ref{fig:tqk8-circuit} gives the gate sequence. A state preparation contains 32 single-qubit rotations and seven CZ gates. Every input angle appears twice; every trainable parameter appears once.
 
 \input{figures/tqk8_circuit}
 
@@ -187,7 +187,7 @@ The diagnostic residual is
                     -\|\mathbf z(\mathbf x)\|_2^2.
  \label{eq:afse-residual}
 \end{equation}
-Values below $-10^{-10}$ are rejected; smaller numerical negatives are set to zero. The runtime flags a query when its residual exceeds the empirical training 99th percentile. This is a reference-coverage heuristic. It is neither a calibrated out-of-distribution test nor evidence of a physical fault. Training landmarks are included in the population used to set that threshold. AFSE is absent from the replicated direct-kernel benchmark.
+Values below $-10^{-10}$ are rejected; smaller numerical negatives are set to zero. The runtime flags a query when its residual exceeds the empirical training 99th percentile. This is a reference-coverage heuristic. It is neither a calibrated out-of-distribution (OOD) test nor evidence of a physical fault. Training landmarks are included in the population used to set that threshold. AFSE is absent from the replicated direct-kernel benchmark.
 
 \subsection{Classical Output and Runtime Boundaries}
 \label{sec:framework-runtime}
@@ -198,7 +198,7 @@ The demonstrator standardizes AFSE vectors using training statistics and fits a 
                   +\mathbf b_2\right)+\mathbf b_3.
  \label{eq:mlp-logits}
 \end{equation}
-Binary output uses a sigmoid; four-class output uses a softmax. Fitting uses L-BFGS and an $L_2$ regularization coefficient of $10^{-3}$. A raw-State8 baseline uses the same hidden widths with separately fitted training preprocessing. It has a different input dimension and is not parameter-count matched to the AFSE model. This baseline is also distinct from the 11-parameter MLP in the replicated experiment.
+Binary output uses a sigmoid; four-class output uses a softmax. Fitting uses the limited-memory Broyden--Fletcher--Goldfarb--Shanno (L-BFGS) algorithm and an $L_2$ regularization coefficient of $10^{-3}$. A raw-State8 baseline uses the same hidden widths with separately fitted training preprocessing. It has a different input dimension and is not parameter-count matched to the AFSE model. This baseline is also distinct from the 11-parameter MLP in the replicated experiment.
 
 The local task reports normal or change. The network task reports normal, environment-compatible, device-compatible, or mixed/ambiguous patterns. These labels express similarity to simulated training conditions, not identified physical causes. A top score below 0.70 or a top-two score margin below 0.15 produces an uncertainty status. Quality failures and incompatible representations can instead cause abstention. Scores are not treated as calibrated probabilities.
 

@@ -1,0 +1,31 @@
+bibtex_key,review_date,source,access_and_review_scope,bibliography_changed
+hall1997fusion,2026-09-18,https://doi.org/10.1109/5.554205,prior-metadata-retained; DOI endpoint inaccessible in this pass,False
+degen2017sensing,2026-09-18,https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.89.035002,primary-publisher indexed record checked,False
+schuld2019feature,2026-09-18,https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.122.040504,primary-publisher indexed record checked,False
+havlicek2019supervised,2026-09-18,https://www.nature.com/articles/s41586-019-0980-2,primary-publisher record checked,False
+huang2021power,2026-09-18,https://www.nature.com/articles/s41467-021-22539-9,primary-publisher record checked,False
+alvarez2025benchmarking,2026-09-18,https://tqe.ieee.org/2025/02/13/benchmarking-quantum-machine-learning-kernel-training-for-classification-tasks/,primary-journal record checked,False
+schnabel2025scrutiny,2026-09-18,https://link.springer.com/article/10.1007/s42484-025-00273-5,primary-publisher record checked,False
+williams2001nystrom,2026-09-18,https://papers.nips.cc/paper/1866-using-the-nystrom-method-to-speed-up-kernel-machines,primary-proceedings record checked; 2000 meeting/2001 publication retained,False
+stokes2020qng,2026-09-18,https://quantum-journal.org/papers/q-2020-05-25-269/,primary-publisher record checked,False
+aqse2026canonical,2026-09-18,https://github.com/florianocaprio/AQSE/tree/0ed58cfd4a1680ee111f91bb44af7ab101d4c01a,pinned source and prior published result inputs retained,False
+liu2021rigorous,2026-09-18,https://www.nature.com/articles/s41567-021-01287-z,primary-publisher record checked,False
+glick2024covariant,2026-09-18,https://www.nature.com/articles/s41567-023-02340-9,primary-publisher record checked,False
+shin2026tensor,2026-09-18,https://journals.aps.org/prresearch/abstract/10.1103/c53t-rybw,primary-publisher indexed record checked; 2026 publication retained,False
+schuld2021encoding,2026-09-18,https://journals.aps.org/pra/abstract/10.1103/PhysRevA.103.032430,primary-publisher indexed record checked,False
+hubregtsen2022training,2026-09-18,https://arxiv.org/abs/2105.02276,author preprint record checked; prior published-version metadata retained,False
+rodriguez2025neural,2026-09-18,https://journals.aps.org/prresearch/abstract/10.1103/xphb-x2g4,primary-publisher record checked,False
+mcclean2018barren,2026-09-18,https://www.nature.com/articles/s41467-018-07090-4,primary-publisher record checked,False
+thanasilp2024concentration,2026-09-18,https://www.nature.com/articles/s41467-024-49287-w,primary-publisher record checked,False
+shaydulin2022bandwidth,2026-09-18,https://journals.aps.org/pra/abstract/10.1103/PhysRevA.106.042407,primary-publisher indexed record checked,False
+bowles2024benchmarking,2026-09-18,https://arxiv.org/abs/2403.07059,author preprint checked; retained explicitly as preprint,False
+cawley2010selection,2026-09-18,https://www.jmlr.org/papers/v11/cawley10a.html,primary-journal record checked,False
+rahimi2007random,2026-09-18,https://proceedings.neurips.cc/paper/2007/hash/013a006f03dbc5392effeb8f18fda755-Abstract.html,primary-proceedings record checked,False
+cortes2012alignment,2026-09-18,https://www.jmlr.org/papers/v13/cortes12a.html,primary-journal record checked,False
+efron1979bootstrap,2026-09-18,https://doi.org/10.1214/aos/1176344552,publisher endpoint reached; full text not newly read; metadata retained,False
+wilcoxon1945ranking,2026-09-18,https://www.jstor.org/stable/i350470,primary journal-issue metadata checked,False
+pratt1959zeros,2026-09-18,https://www.tandfonline.com/doi/abs/10.1080/01621459.1959.10501526,primary-publisher metadata and abstract checked,False
+roy2007rank,2026-09-18,https://doi.org/10.5281/zenodo.40328,proceedings archive and author-institution record checked,False
+holm1979multiple,2026-09-18,https://www.jstor.org/stable/i412579,primary journal-issue metadata checked,False
+spearman1904association,2026-09-18,https://www.jstor.org/stable/1412159,primary-journal indexed record checked,False
+phipson2010permutation,2026-09-18,https://arxiv.org/abs/1603.05766,author preprint and published bibliographic record checked,False

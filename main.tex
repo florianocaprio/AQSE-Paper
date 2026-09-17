@@ -1,6 +1,6 @@
-% AQSE manuscript: Passes 1--5 working source for IEEE Transactions on Quantum Engineering.
-% IEEEtran journal layout is used for this review draft. See README.md for template status.
-\documentclass[journal]{IEEEtran}
+% AQSE: integrated author-review manuscript for IEEE Transactions on Quantum Engineering.
+% Standard, unmodified IEEEtran journal layout. No invented publication metadata.
+\documentclass[10pt,journal]{IEEEtran}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb}
@@ -10,19 +10,24 @@
 \usepackage{tikz}
 \usepackage[hidelinks]{hyperref}
 \urlstyle{same}
+\hypersetup{
+ pdftitle={AQSE: A Hybrid Quantum-Classical Framework for Contextual Sensor-Network Representation},
+ pdfauthor={Floriano Caprio, Matteo Tortora, Paolo Soda, Sunil Gentyala},
+ pdfsubject={Trainable quantum kernels for controlled magnetometer data},
+ pdfkeywords={kernel methods, magnetometers, quantum machine learning, quantum natural gradient, sensor networks}
+}
 
 \title{AQSE: A Hybrid Quantum--Classical Framework for Contextual Sensor-Network Representation}
-% The author list, affiliations, funding, and ORCIDs require author confirmation.
-% Do not infer them from repository ownership.
-\author{}
+\input{frontmatter/authors}
 
 \begin{document}
 \maketitle
-\begin{center}
-\small\textit{Working draft. Core text complete through Conclusions; final integration pending.}
-\end{center}
-% Abstract, Index Terms, authors and final submission checks belong to final integration.
-% The completed core text is not yet a submission-ready manuscript.
+\begin{abstract}
+\input{frontmatter/abstract}
+\end{abstract}
+\begin{IEEEkeywords}
+\input{frontmatter/index_terms}
+\end{IEEEkeywords}
 
 \input{sections/01_introduction}
 \input{sections/02_related_work}
@@ -32,6 +37,8 @@
 \input{sections/06_discussion}
 \input{sections/07_limitations}
 \input{sections/08_conclusion}
+\input{sections/09_availability}
+\input{sections/10_acknowledgment}
 
 \bibliographystyle{IEEEtran}
 \bibliography{bibliography}
