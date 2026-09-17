@@ -1,28 +1,26 @@
-# AQSE paper | Pass 1
+# AQSE manuscript for IEEE Transactions on Quantum Engineering
 
-Target journal: **IEEE Transactions on Quantum Engineering (TQE)**.
+## Current draft
 
-Title: **AQSE: A Hybrid Quantum–Classical Framework for Contextual Sensor-Network Representation**.
+Passes 1 and 2 are integrated: Introduction, Related Work, and AQSE Framework.
+This is a partial working draft in English, not a submission-ready manuscript.
+The scientific data repository remains separate from this manuscript repository.
 
-This branch contains the first writing pass: Introduction and Related Work. It is a working manuscript, not a submission-ready article. No new experiment or model evaluation was run for this pass.
+- Manuscript branch: `paper/ieee-tqe-v1`.
+- Input manuscript revision for Pass 2: `a96f1bc067c7c1bfbd9be9f77eb3f19c0ebe85ec`.
+- Scientific source snapshot: `0ed58cfd4a1680ee111f91bb44af7ab101d4c01a`.
+- Experimental execution revision: `091acf2e98b2b88720730eea276e253f0c96f5a6`.
 
-## Files
+The two existing prose sections are unchanged. The framework, two TikZ vector
+figures, one State8 table, and one bibliography entry have been added.
+`editorial/pass2-evidence-and-decisions.md` maps equations to source code.
 
-- `main.tex`: compilable two-section review manuscript.
-- `bibliography.bib`: 22 source records in IEEE numeric citation order. The existing repository filename is preserved.
-- `sections/01_introduction.tex`: problem, framework, experimental boundary, contributions, and primary result.
-- `sections/02_related_work.tex`: five focused subsections on kernels, optimization, concentration, evaluation, and classical interfaces.
-- `editorial/pass1-evidence-and-decisions.md`: source-to-claim map, journal checks, scope constraints, and AI-use record. This file is not included in the manuscript PDF.
+## Files and compilation
 
-## Compile
-
-Use pdfLaTeX with BibTeX, or run:
-
-```sh
-latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
-```
-
-Equivalent explicit commands:
+Open `main.tex` as the root document. Use pdfLaTeX and BibTeX with the unmodified
+`IEEEtran` journal class and `IEEEtran` bibliography style. TikZ draws both
+figures directly, so there are no external image or shell-escape dependencies.
+A standard TeX Live / MacTeX installation or Overleaf supplies these packages.
 
 ```sh
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
@@ -31,28 +29,41 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-The draft uses the standard, unmodified `IEEEtran` journal class. It does not reproduce a verified TQE-specific production class or journal branding. The official TQE submission page and template guidance were checked; the final journal-specific submission template must be reconciled before submission. No author list, affiliations, funding, ORCIDs, abstract, publication metadata, or copyright line has been invented. The abstract and author block belong to later integration.
+The download delivery includes a separate `compila_pdf.sh`; it is not committed
+into the manuscript. Figures can be edited in `figures/`, the table in `tables/`.
+Generated PDFs, auxiliary files, download scripts, and ZIP packages do not belong
+in this source branch. Do not add dataset archives to this manuscript repository.
 
-## GitHub and Overleaf
+## Template and editorial status
 
-Development branch: `paper/ieee-tqe-v1`.
+This draft uses `IEEEtran` in journal mode. It does not claim to be the final
+TQE-specific production template. Check the journal's current template and
+submission instructions before submission. Abstract, authors, affiliations,
+funding, ORCIDs, remaining sections, and final AI-assistance disclosure require
+later integration and author approval.
 
-`main` is intentionally unchanged. Do not assume that Overleaf automatically imports a non-default GitHub branch. For immediate review, upload the provided source ZIP into a separate Overleaf review project and select `main.tex`. For the linked project, review and merge the manuscript branch into the synchronized GitHub branch before importing changes through the existing GitHub integration. Avoid simultaneous edits to the same files in GitHub and Overleaf. No merge is authorized by this writing pass.
+English style: concise academic prose, no em-dashes, no promotional language.
+Numbers and equations must be tied to evidence. The network State8--AFSE--MLP
+path must not be described as the path evaluated by the 30-replica harmonic
+TQK--SVC benchmark. No hardware advantage or field validity is claimed.
 
-## Evidence baseline
+## Update workflow
 
-Scientific code and canonical report package: `florianocaprio/AQSE`, commit `0ed58cfd4a1680ee111f91bb44af7ab101d4c01a`.
+All writing passes remain on `paper/ieee-tqe-v1`. The downloadable upload script
+checks the exact prior revision and file content, then stages only the declared
+manuscript files. It does not modify `main`, merge, rewrite history, or run AQSE.
+Do not independently edit the same files while applying a delivery update.
 
-Experiment execution commit: `091acf2e98b2b88720730eea276e253f0c96f5a6`.
+Overleaf compilation and GitHub publication are separate operations. No automatic
+branch synchronization is assumed. Use the generated preview PDF while the
+manuscript is on the review branch, or import a separate source snapshot into a
+review project. Sync the agreed main branch only after explicit merge approval.
 
-Canonical package path: `paper/replicated-study-2026/`.
+## Writing plan
 
-The 30-replica benchmark tests a single-sensor harmonic white-noise task with TQK-SVC. It must not be described as a 30-replica evaluation of the full network State8–AFSE–MLP demonstrator. The two paths are distinguished in the text. The primary advantage criterion was not met. Spectral observations and retained validation supervision in the training-label permutation control require separate interpretation.
-
-## Writing policy
-
-Concise academic English. No em-dashes, promotional claims, or generic transition filler. Distinguish empirical observations, theoretical guarantees, and hypotheses. Preserve the primary preregistered conclusion. Do not equate absence of a detected difference with equivalence. Cite published versions where verified and label preprints explicitly.
-
-## AI-use and author review
-
-ChatGPT generated this first English draft and its source organization using the cited literature and repository records. Human authors must verify the argument, references, data interpretation, and final wording. An IEEE-compliant acknowledgment of AI-generated content must be finalized before submission. The disclosure record and suggested wording are in `editorial/pass1-evidence-and-decisions.md`.
+1. Introduction + Related Work: delivered.
+2. AQSE Framework: delivered in this update.
+3. Experimental Methodology: pending.
+4. Results: pending.
+5. Discussion, Limitations, Conclusions: pending.
+6. Final integration, abstract, references, figures, and submission checks: pending.
