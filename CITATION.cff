@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+title: >-
+  AQSE: A Hybrid Quantum-Classical Framework for Contextual
+  Sensor-Network Representation
+message: >-
+  This manuscript is in preparation for IEEE Transactions on Quantum
+  Engineering and has not yet been submitted or accepted. Cite this
+  repository as a preprint/manuscript record until a DOI is assigned;
+  this file will be updated with the journal citation on acceptance.
+type: article
+authors:
+  - family-names: Caprio
+    given-names: Floriano
+    affiliation: Unità Campus Bio-Medico di Roma, Italy
+    email: f.caprio@unicampus.it
+  - family-names: Tortora
+    given-names: Matteo
+    affiliation: University of Genoa, Italy
+  - family-names: Soda
+    given-names: Paolo
+    affiliation: Umeå University, Sweden
+  - family-names: Gentyala
+    given-names: Sunil
+    affiliation: HCL Technologies, United States
+repository-code: https://github.com/florianocaprio/AQSE-Paper
+url: https://florianocaprio.github.io/AQSE-Paper/
+version: tqe-submission-v1
+date-released: 2026-09-18
+keywords:
+  - kernel methods
+  - magnetometers
+  - quantum machine learning
+  - quantum natural gradient
+  - sensor networks
