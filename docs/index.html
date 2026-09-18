@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AQSE: Hybrid Quantum-Classical Sensor-Network Framework</title>
+<meta name="description" content="AQSE is a hybrid quantum-classical framework for contextual sensor-data representation, evaluating a trainable eight-qubit fidelity kernel against classical baselines on a controlled magnetometer task. Manuscript in preparation for IEEE Transactions on Quantum Engineering." />
+<meta name="theme-color" content="#050a14" />
+<link rel="canonical" href="https://florianocaprio.github.io/AQSE-Paper/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23050a14' stroke='%2338bdf8' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2338bdf8'/%3E%3C/svg%3E" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="AQSE: Hybrid Quantum-Classical Sensor-Network Framework" />
+<meta property="og:description" content="A trainable eight-qubit fidelity kernel evaluated against classical baselines on a controlled magnetometer task, across 30 preregistered corpora." />
+<meta property="og:url" content="https://florianocaprio.github.io/AQSE-Paper/" />
+<meta name="twitter:card" content="summary" />
+
+<style>
+  :root{
+    --bg:#050a14; --bg2:#080f1c; --bg-elev:#0b1424;
+    --border:#132238; --border-soft:#0f2236;
+    --text:#e2e8f0; --text-dim:#94a3b8; --text-faint:#5b6b82;
+    --accent:#38bdf8; --accent2:#a78bfa;
+    --good:#22c55e; --warn:#fbbf24; --bad:#f87171;
+    --radius:12px;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#f8fafc; --bg2:#ffffff; --bg-elev:#ffffff;
+      --border:#e2e8f0; --border-soft:#eef2f7;
+      --text:#0f172a; --text-dim:#475569; --text-faint:#94a3b8;
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(14,165,233,.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(167,139,250,.10), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:0 16px}
+  a{color:var(--accent)}
+  code,.mono{font-family:'SFMono-Regular',Consolas,'Courier New',monospace}
+  ::selection{background:rgba(56,189,248,.3)}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(5,10,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  @media (prefers-color-scheme:light){ :root:not([data-theme="dark"]) nav{background:rgba(255,255,255,.85)} }
+  .nav-inner{max-width:980px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .nav-brand{font-weight:700;font-size:15px;letter-spacing:.02em}
+  .nav-links{display:flex;gap:18px;font-size:13px;color:var(--text-dim);flex-wrap:wrap}
+  .nav-links a{color:var(--text-dim);text-decoration:none}
+  .nav-links a:hover{color:var(--accent)}
+
+  header.hero{padding:56px 0 40px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 20px}
+  .badge{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--border);color:var(--text-dim);background:var(--bg-elev)}
+  .badge.warn{color:var(--warn);border-color:rgba(251,191,36,.35)}
+  .badge.good{color:var(--good);border-color:rgba(34,197,94,.35)}
+  h1{font-size:clamp(28px,5vw,42px);line-height:1.15;letter-spacing:-.01em}
+  .subtitle{color:var(--text-dim);font-size:clamp(15px,2.2vw,18px);margin-top:12px;max-width:640px}
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:10px 18px;border-radius:9px;font-size:14px;font-weight:600;text-decoration:none;border:1px solid var(--border)}
+  .btn.primary{background:var(--accent);color:#04121f;border-color:var(--accent)}
+  .btn.ghost{color:var(--text)}
+
+  section{padding:40px 0;border-top:1px solid var(--border-soft)}
+  h2{font-size:22px;margin-bottom:16px}
+  h2 .idx{color:var(--text-faint);font-weight:400;margin-right:8px}
+  p{color:var(--text-dim)}
+  p+p{margin-top:10px}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:8px}
+  .stat{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+  .stat .v{font-size:26px;font-weight:700;font-family:'SFMono-Regular',Consolas,monospace}
+  .stat .l{font-size:12.5px;color:var(--text-dim);margin-top:4px}
+
+  .callout{background:var(--bg-elev);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:var(--radius);padding:16px 18px;margin-top:14px}
+  .callout h3{font-size:14px;color:var(--warn);margin-bottom:8px;letter-spacing:.02em;text-transform:uppercase}
+  .callout ul{margin-left:18px;color:var(--text-dim);font-size:14.5px}
+  .callout li+li{margin-top:6px}
+
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border-soft)}
+  th{color:var(--text-faint);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.03em}
+  td.num,th.num{text-align:right;font-family:'SFMono-Regular',Consolas,monospace}
+
+  .authors{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:8px}
+  .author{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+  .author .name{font-weight:600}
+  .author .aff{font-size:13px;color:var(--text-dim);margin-top:4px}
+
+  pre{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;overflow-x:auto;font-size:13px;margin-top:10px}
+
+  .tree{font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;color:var(--text-dim);background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;overflow-x:auto}
+  .tree .p{color:var(--accent2)}
+
+  footer{padding:32px 0 48px;color:var(--text-faint);font-size:13px}
+  footer a{color:var(--text-faint)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">AQSE</div>
+    <div class="nav-links">
+      <a href="#result">Result</a>
+      <a href="#framework">Framework</a>
+      <a href="#boundary">Scientific boundary</a>
+      <a href="#authors">Authors</a>
+      <a href="#repo">Repository</a>
+      <a href="https://github.com/florianocaprio/AQSE-Paper">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="badges">
+      <span class="badge warn">IEEE TQE &mdash; in preparation</span>
+      <span class="badge">30 independent corpora</span>
+      <span class="badge">8 qubits &middot; 16 trainable params</span>
+      <span class="badge good">exact statevector simulation</span>
+    </div>
+    <h1>A hybrid quantum&ndash;classical framework for contextual sensor-network representation</h1>
+    <p class="subtitle">AQSE separates observations, eight-dimensional feature profiles, quantum encoding, and classical prediction, then evaluates a trainable quantum kernel (TQK) against classical alternatives on a controlled magnetometer task &mdash; under a repository-preregistered protocol.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/florianocaprio/AQSE-Paper">View repository</a>
+      <a class="btn ghost" href="https://github.com/florianocaprio/AQSE-Paper/blob/main/main.tex">Read manuscript source</a>
+    </div>
+  </header>
+
+  <section id="result">
+    <h2><span class="idx">01</span>Headline result</h2>
+    <p>An eight-qubit variational circuit with 16 trainable parameters defines a fidelity kernel (TQK), optimized by quantum natural gradient and read out through an SVC. It is compared against a radial-basis-function SVC baseline across 30 independently generated corpora (120 episodes each: 72 train / 24 validation / 24 test).</p>
+    <table>
+      <tr><th>Model</th><th class="num">Mean test balanced accuracy</th></tr>
+      <tr><td>TQK&ndash;SVC (quantum kernel)</td><td class="num">0.9528</td></tr>
+      <tr><td>RBF&ndash;SVC (classical baseline)</td><td class="num">0.9569</td></tr>
+    </table>
+    <div class="stat-grid" style="margin-top:18px">
+      <div class="stat"><div class="v">&minus;0.0042</div><div class="l">paired difference (TQK &minus; RBF)</div></div>
+      <div class="stat"><div class="v">[&minus;0.0222, 0.0125]</div><div class="l">95% bootstrap CI</div></div>
+      <div class="stat"><div class="v">0.9328</div><div class="l">two-sided Wilcoxon p-value</div></div>
+      <div class="stat"><div class="v">12 &times; 2</div><div class="l">positive &amp; training-label control runs</div></div>
+    </div>
+    <p style="margin-top:14px"><b>The preregistered predictive-advantage criterion was not met.</b> Optimization changed kernel spectra, but exploratory spectral&ndash;performance associations remained unresolved. All quantum computations use exact classical statevector simulation &mdash; no QPU or physical sensor deployment is evaluated.</p>
+  </section>
+
+  <section id="framework">
+    <h2><span class="idx">02</span>Framework</h2>
+    <p>AQSE connects simulated observations from one to eight magnetometers to causal, eight-dimensional local or network feature profiles (<span class="mono">State8</span>). An eight-qubit variational circuit (VQC) defines a trainable fidelity kernel (<span class="mono">TQK</span>). A regularized Nystr&ouml;m map (<span class="mono">AFSE</span>) converts kernel similarities to a fixed-dimensional classical representation, which passes to a multilayer perceptron &mdash; a classical-approximation step, not a separate quantum algorithm.</p>
+    <p>Training and inference are distinct operations: quantum natural gradient (QNG) updates circuit parameters during an explicit training job; inference uses frozen parameters and preprocessing. Versioned model bundles link each output to its feature profile, scaler, circuit parameters, landmarks, and classifier.</p>
+    <p>The replicated experiment reported here isolates the TQK component on a controlled, single-magnetometer task &mdash; discrimination between nominal and elevated white-noise regimes under harmonic excitation &mdash; using an eight-feature harmonic representation and an SVC operating directly on the quantum kernel. <b>It does not evaluate the complete network State8&ndash;AFSE&ndash;MLP path.</b></p>
+  </section>
+
+  <section id="boundary">
+    <h2><span class="idx">03</span>Scientific boundary</h2>
+    <div class="callout">
+      <h3>What this work does not claim</h3>
+      <ul>
+        <li>The network State8&ndash;AFSE&ndash;MLP demonstrator and the single-magnetometer harmonic TQK&ndash;SVC benchmark are separate routes; the 30 corpora test only the latter.</li>
+        <li>The TRAIN-label control keeps validation supervision and reuses one teacher dataset &mdash; a partial training-signal ablation, not a fully label-null experiment.</li>
+        <li>Reported QNG trajectories lack TEST evaluations for the unselected initial models.</li>
+        <li>No hardware advantage, field-deployment validity, or causal training benefit is claimed.</li>
+      </ul>
+    </div>
+    <p style="margin-top:14px">Revision passes (tracked in <code>editorial/</code>, six to date) have only ever defined acronyms, disambiguated units, standardized route/figure names, or removed unsupported references &mdash; never changed a frozen estimate, added an unreported experiment, or altered a displayed equation. <code>analysis/pass4/</code> is the single source of truth for every number in the manuscript, with a reproduction script included.</p>
+  </section>
+
+  <section id="authors">
+    <h2><span class="idx">04</span>Authors</h2>
+    <div class="authors">
+      <div class="author"><div class="name">Floriano Caprio<sup>1,*</sup></div><div class="aff">Unit of Artificial Intelligence and Computer Systems, Universit&agrave; Campus Bio-Medico di Roma, Italy &mdash; corresponding author</div></div>
+      <div class="author"><div class="name">Matteo Tortora<sup>2</sup></div><div class="aff">Dept. of Naval, Electrical, Electronics and Telecommunications Engineering, University of Genoa, Italy</div></div>
+      <div class="author"><div class="name">Paolo Soda<sup>1,3</sup></div><div class="aff">Dept. of Diagnostics and Intervention, Biomedical Engineering and Radiation Physics, Ume&aring; University, Sweden</div></div>
+      <div class="author"><div class="name">Sunil Gentyala<sup>4</sup></div><div class="aff">HCL Technologies, United States</div></div>
+    </div>
+  </section>
+
+  <section id="repo">
+    <h2><span class="idx">05</span>Repository</h2>
+    <div class="tree">frontmatter/<span class="p"> &mdash; author metadata, abstract, index terms</span>
+sections/<span class="p">   &mdash; 01_introduction .. 08_conclusion, availability, acknowledgment</span>
+figures/<span class="p">    &mdash; 2 TikZ sources + 3 generated result PDFs</span>
+tables/<span class="p">     &mdash; 7 method and result tables</span>
+bibliography.bib<span class="p"> &mdash; 30 reference records</span>
+analysis/pass4/<span class="p"> &mdash; inputs, reproduce_results.py, derived outputs</span>
+editorial/<span class="p">  &mdash; pass-by-pass evidence/decisions log, submission checklist</span>
+main.tex<span class="p">    &mdash; root document (IEEEtran journal class, 10pt)</span></div>
+    <p style="margin-top:16px">Reproduce every reported number:</p>
+    <pre>cd analysis/pass4
+python reproduce_results.py</pre>
+    <p style="margin-top:16px">Build the manuscript:</p>
+    <pre>pdflatex -interaction=nonstopmode -halt-on-error main.tex
+bibtex main
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+pdflatex -interaction=nonstopmode -halt-on-error main.tex</pre>
+  </section>
+
+  <footer>
+    <p>Manuscript in preparation for IEEE Transactions on Quantum Engineering &mdash; not yet submitted. See the <a href="https://github.com/florianocaprio/AQSE-Paper/blob/main/editorial/submission-checklist.md">submission checklist</a> for what remains open, and <a href="https://github.com/florianocaprio/AQSE-Paper/blob/main/CITATION.cff">CITATION.cff</a> for how to cite this work in the meantime.</p>
+    <p style="margin-top:10px">&copy; 2026 the authors. Source at <a href="https://github.com/florianocaprio/AQSE-Paper">github.com/florianocaprio/AQSE-Paper</a>.</p>
+  </footer>
+</div>
+
+</body>
+</html>
